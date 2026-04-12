@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "paths": {
+      "@context/*": ["context/*"]
+    }
+  },
+  "include": [
+    "src",
+    "src/cometchat-pro-react-ui-kit/src/declaration.d.ts",
+    "src/CometChatSettings.ts"
+  ],
+  "exclude": ["src/cometchat-pro-react-ui-kit/examples/"]
+}

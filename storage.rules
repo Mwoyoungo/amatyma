@@ -1,0 +1,40 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Users can upload their own profile photos
+    match /users/{userId}/profile.jpg {
+      allow read: if true;  // Anyone can view profile photos
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Business logos
+    match /businesses/{userId}/logo.jpg {
+      allow read: if true;  // Anyone can view business logos
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Posts (images and videos)
+    match /posts/{userId}/{postFile} {
+      allow read: if true;  // Anyone can view posts
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Stories (images and videos)
+    match /stories/{userId}/{storyFile} {
+      allow read: if true;  // Anyone can view stories
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Product images (multiple images per product)
+    match /products/{userId}/{imageFile} {
+      allow read: if true;  // Anyone can view product images
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Default deny all other access
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

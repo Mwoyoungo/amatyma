@@ -1,0 +1,53 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users collection - users can read/write their own document
+    match /users/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow list: if true;  // Allow queries for username uniqueness
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Usernames collection - allow reading for username uniqueness checks
+    // Only allow writes from authenticated users for their own username
+    match /usernames/{username} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null &&
+                      request.resource.data.uid == request.auth.uid;
+    }
+
+    // Businesses collection
+    match /businesses/{userId} {
+      allow read: if true;  // Anyone can read business profiles (for discovery)
+      allow write: if request.auth != null && request.auth.uid == userId;  // Only owner can write
+    }
+
+    // Posts collection
+    match /posts/{postId} {
+      allow read: if true;  // Anyone can read posts (for feed)
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;  // Only owner can create
+      allow update, delete: if request.auth != null && resource.data.userId == request.auth.uid;  // Only owner can edit/delete
+    }
+
+    // Stories collection
+    match /stories/{storyId} {
+      allow read: if true;  // Anyone can read stories (for feed and viewer)
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;  // Only owner can create
+      allow update, delete: if request.auth != null && resource.data.userId == request.auth.uid;  // Only owner can edit/delete
+    }
+
+    // Products collection
+    match /products/{productId} {
+      allow read: if true;  // Anyone can read products (for shop feed)
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;  // Only owner can create
+      allow update, delete: if request.auth != null && resource.data.userId == request.auth.uid;  // Only owner can edit/delete
+    }
+
+    // Default deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

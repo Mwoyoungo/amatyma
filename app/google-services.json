@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "306750530279",
+    "project_id": "amatyma-e75a8",
+    "storage_bucket": "amatyma-e75a8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306750530279:android:860c4d0b8e79af60d83842",
+        "android_client_info": {
+          "package_name": "com.lokaleza.amatyma"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj5MB86Kkv2Z6PiPj1hs1SBj_n7oIwqMg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

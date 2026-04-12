@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">amatyma</string>
+
+    <!-- Article Categories -->
+    <string-array name="article_categories">
+        <item>Culture</item>
+        <item>Religion &amp; Spirituality</item>
+        <item>Business &amp; Entrepreneurship</item>
+        <item>Health &amp; Fitness</item>
+        <item>Mental Health</item>
+        <item>Relationships &amp; Dating</item>
+        <item>Finance &amp; Investing</item>
+        <item>Personal Development</item>
+        <item>Career &amp; Leadership</item>
+        <item>Fashion &amp; Grooming</item>
+        <item>Nutrition &amp; Diet</item>
+        <item>Parenting &amp; Fatherhood</item>
+        <item>Sports &amp; Recreation</item>
+        <item>Philosophy &amp; Wisdom</item>
+        <item>Self-Improvement</item>
+        <item>Motivation &amp; Mindset</item>
+    </string-array>
+</resources>

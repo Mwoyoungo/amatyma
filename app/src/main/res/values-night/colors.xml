@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark Mode Overrides - Pastel Card Backgrounds -->
+    <color name="card_lavender">#2A2B3D</color>
+    <color name="card_cream">#3A3529</color>
+    <color name="card_mint">#263332</color>
+    <color name="card_pink">#3A2930</color>
+</resources>
