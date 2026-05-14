@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <com.cometchat.chatuikit.conversations.CometChatConversations
-        android:id="@+id/conversations_with_messages"
+        android:id="@+id/conversations"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
