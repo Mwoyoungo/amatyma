@@ -10,6 +10,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatDelegate
+import com.cometchat.chat.constants.CometChatConstants
 import com.cometchat.chat.core.Call
 import com.cometchat.chat.core.CometChat
 import com.cometchat.chat.exceptions.CometChatException
@@ -148,7 +149,7 @@ class AmatymaApplication : Application() {
     private fun rejectWithBusy(call: Call) {
         Thread {
             try { Thread.sleep(2000) } catch (e: InterruptedException) { return@Thread }
-            CometChat.rejectCall(call.sessionId, CometChat.CALL_STATUS.BUSY, object : CometChat.CallbackListener<Call>() {
+            CometChat.rejectCall(call.sessionId, CometChatConstants.CALL_STATUS_BUSY, object : CometChat.CallbackListener<Call>() {
                 override fun onSuccess(c: Call) { CometChatUIKitHelper.onCallRejected(c) }
                 override fun onError(e: CometChatException) {}
             })
