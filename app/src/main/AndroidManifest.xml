@@ -76,6 +76,10 @@
             android:name=".UserDetailsActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".GroupDetailsActivity"
+            android:exported="false" />
+
         <!-- ── Business / social screens (non-CometChat) ── -->
         <activity
             android:name=".DiscoverActivity"
