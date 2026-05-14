@@ -10,18 +10,25 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
+    <!--
+        App-level theme is CometChat-compatible so UIKit call activities
+        (CometChatOngoingCallActivity etc.) get the correct theme attrs.
+        Non-CometChat screens override with Theme.Amatyma explicitly.
+    -->
     <application
         android:name=".AmatymaApplication"
         android:allowBackup="true"
         android:allowNativeHeapPointerTagging="false"
+        android:extractNativeLibs="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Amatyma">
+        android:theme="@style/Theme.Amatyma.CometChat">
 
+        <!-- ── Launcher ── -->
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -33,64 +40,79 @@
             </intent-filter>
         </activity>
 
+        <!-- ── Auth / onboarding (non-CometChat screens) ── -->
         <activity
             android:name=".AuthActivity"
             android:exported="false"
+            android:theme="@style/Theme.Amatyma"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".ProfileSetupActivity"
             android:exported="false"
+            android:theme="@style/Theme.Amatyma"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Amatyma" />
+
+        <!-- ── CometChat screens (inherit app CometChat theme) ── -->
+        <activity
+            android:name=".MainActivity"
             android:exported="false" />
 
         <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Amatyma.CometChat" />
-
-        <activity
             android:name=".ConversationsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Amatyma.CometChat" />
+            android:exported="false" />
 
         <activity
             android:name=".MessagesActivity"
             android:exported="false"
-            android:theme="@style/Theme.Amatyma.CometChat" />
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".DiscoverActivity"
+            android:name=".UserDetailsActivity"
             android:exported="false" />
+
+        <!-- ── Business / social screens (non-CometChat) ── -->
+        <activity
+            android:name=".DiscoverActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Amatyma" />
 
         <activity
             android:name=".BusinessProfileSetupActivity"
             android:exported="false"
+            android:theme="@style/Theme.Amatyma"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".MyBusinessProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Amatyma" />
 
         <activity
             android:name=".CreatePostActivity"
             android:exported="false"
+            android:theme="@style/Theme.Amatyma"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".PostDetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Amatyma" />
 
         <activity
             android:name=".PublicBusinessProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Amatyma" />
 
         <activity
             android:name=".CreateStoryActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Amatyma" />
 
         <activity
             android:name=".StoryViewerActivity"
@@ -101,32 +123,39 @@
         <activity
             android:name=".SearchActivity"
             android:exported="false"
+            android:theme="@style/Theme.Amatyma"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".ShopActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Amatyma" />
 
         <activity
             android:name=".ProductDetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Amatyma" />
 
         <activity
             android:name=".ProductCreateActivity"
             android:exported="false"
+            android:theme="@style/Theme.Amatyma"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".EventsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Amatyma" />
 
         <activity
             android:name=".PdfViewerActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Amatyma" />
 
         <activity
             android:name=".ArticlesActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Amatyma" />
 
     </application>
 
