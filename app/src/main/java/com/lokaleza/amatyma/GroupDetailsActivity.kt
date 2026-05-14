@@ -161,7 +161,7 @@ class GroupDetailsActivity : AppCompatActivity() {
             }
         }
 
-        CometChat.addMembersToGroup(group.guid, members, object : CometChat.CallbackListener<HashMap<String, String>>() {
+        CometChat.addMembersToGroup(group.guid, members, arrayListOf(), object : CometChat.CallbackListener<HashMap<String, String>>() {
             override fun onSuccess(result: HashMap<String, String>) {
                 runOnUiThread {
                     group.membersCount += members.size
