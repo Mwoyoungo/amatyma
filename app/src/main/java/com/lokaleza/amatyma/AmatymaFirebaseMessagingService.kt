@@ -36,10 +36,11 @@ class AmatymaFirebaseMessagingService : FirebaseMessagingService() {
 
         val callerName = data["callerName"] ?: "Someone"
         val callType   = data["callType"]   ?: "audio"
-        val sessionId  = data["sessionId"]  ?: return
+        val sessionId  = data["sessionId"]  ?: ""
+        val callerUid  = data["callerUid"]  ?: ""
 
         createNotificationChannel()
-        showIncomingCallNotification(callerName, callType, sessionId)
+        showIncomingCallNotification(callerName, callType, sessionId, callerUid)
     }
 
     private fun createNotificationChannel() {
@@ -63,15 +64,18 @@ class AmatymaFirebaseMessagingService : FirebaseMessagingService() {
     private fun showIncomingCallNotification(
         callerName: String,
         callType: String,
-        sessionId: String
+        sessionId: String,
+        callerUid: String
     ) {
-        // Full-screen intent — opens the app to handle the call
-        val openAppIntent = Intent(this, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-            putExtra("incoming_call", true)
+        // Full-screen intent — opens IncomingCallActivity directly
+        val openAppIntent = Intent(this, IncomingCallActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                    Intent.FLAG_ACTIVITY_SINGLE_TOP
             putExtra("caller_name", callerName)
-            putExtra("call_type", callType)
-            putExtra("session_id", sessionId)
+            putExtra("call_type",   callType)
+            putExtra("session_id",  sessionId)
+            putExtra("caller_uid",  callerUid)
         }
 
         val fullScreenPending = PendingIntent.getActivity(
