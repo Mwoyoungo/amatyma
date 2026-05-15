@@ -63,7 +63,7 @@ class IncomingCallActivity : AppCompatActivity() {
         // Populate UI immediately — no SDK needed for this
         binding.tvCallerName.text = callerName
         binding.tvCallType.text   = "Incoming ${callType} call"
-        binding.avatar.setAvatar(callerName, null)
+        binding.avatar.setAvatar(callerName, "")
 
         binding.btnDecline.setOnClickListener { declineCall() }
         binding.btnAccept.setOnClickListener  { acceptCall()  }
