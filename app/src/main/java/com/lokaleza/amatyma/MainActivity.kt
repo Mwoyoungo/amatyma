@@ -13,7 +13,10 @@ import com.cometchat.chat.exceptions.CometChatException
 import com.cometchat.chat.models.User
 import com.cometchat.chatuikit.shared.cometchatuikit.CometChatUIKit
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.functions.FirebaseFunctions
+import com.google.firebase.messaging.FirebaseMessaging
 import com.lokaleza.amatyma.databinding.ActivityMainBinding
 import com.lokaleza.amatyma.db.CometChatSyncManager
 
@@ -176,9 +179,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun saveFcmToken(uid: String) {
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+            FirebaseFirestore.getInstance()
+                .collection("users").document(uid)
+                .update("fcmTokens", FieldValue.arrayUnion(token))
+                .addOnFailureListener {
+                    // Document might not exist yet — use set with merge
+                    FirebaseFirestore.getInstance()
+                        .collection("users").document(uid)
+                        .set(mapOf("fcmTokens" to listOf(token)), com.google.firebase.firestore.SetOptions.merge())
+                }
+        }
+    }
+
     private fun onCometChatReady() {
         syncManager = CometChatSyncManager(this)
         syncManager.start()
+
+        FirebaseAuth.getInstance().currentUser?.uid?.let { saveFcmToken(it) }
 
         if (supportFragmentManager.findFragmentByTag("chats") == null) {
             initializeFragments()

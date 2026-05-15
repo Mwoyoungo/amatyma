@@ -4,6 +4,7 @@ import java.io.FileInputStream
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
     id("com.google.gms.google-services")
 }
 
@@ -23,8 +24,8 @@ android {
         applicationId = "com.lokaleza.amatyma"
         minSdk = 24
         targetSdk = 36
-        versionCode = 5
-        versionName = "1.4"
+        versionCode = 13
+        versionName = "2.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -69,7 +70,7 @@ android {
 
     packaging {
         jniLibs {
-            useLegacyPackaging = false
+            useLegacyPackaging = true
         }
     }
 
@@ -89,13 +90,13 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
-    // CometChat UI Kit
-    implementation("com.cometchat:chat-uikit-android:5.1.0") {
+    // CometChat UI Kit — 5.2.12 includes 16KB page size aligned native libraries
+    implementation("com.cometchat:chat-uikit-android:5.2.12") {
         exclude(group = "com.android.support")
     }
 
-    // CometChat Calls SDK (for voice/video calling)
-    implementation("com.cometchat:calls-sdk-android:4.1.0")
+    // CometChat Calls SDK
+    implementation("com.cometchat:calls-sdk-android:4.3.3")
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
@@ -103,6 +104,15 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-storage-ktx")
     implementation("com.google.firebase:firebase-functions-ktx")
+    implementation("com.google.firebase:firebase-messaging-ktx")
+
+    // Room — local database for offline conversations and messages
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
+    // Lifecycle — repeatOnLifecycle for Flow collection in fragments
+    implementation(libs.lifecycle.runtime.ktx)
 
     // Image loading for profile pictures
     implementation("io.coil-kt:coil:2.5.0")
