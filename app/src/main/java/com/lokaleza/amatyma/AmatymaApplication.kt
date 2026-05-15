@@ -3,6 +3,7 @@ package com.lokaleza.amatyma
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
+import android.app.NotificationManager
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -51,6 +52,10 @@ class AmatymaApplication : Application() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         soundManager = CometChatSoundManager(this)
+        // Create the call notification channel before any FCM message can arrive
+        AmatymaFirebaseMessagingService.createNotificationChannel(
+            getSystemService(NotificationManager::class.java)
+        )
         registerActivityTracker()
         addCallListener()
         clearStaleDataIfAccountChanged()

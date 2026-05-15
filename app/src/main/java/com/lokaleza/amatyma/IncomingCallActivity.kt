@@ -37,17 +37,22 @@ class IncomingCallActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Show on lock screen and wake the display immediately
+        // These window flags must be set BEFORE setContentView so Android
+        // applies them when the activity window is first attached.
+        // FLAG_DISMISS_KEYGUARD is the critical one — without it the activity
+        // sits behind the lock screen even after the screen wakes up.
+        @Suppress("DEPRECATION")
+        window.addFlags(
+            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON      or
+            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD    or
+            WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED    or
+            WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+        )
+
+        // API 27+ replacements for the deprecated show/turn flags (both sets are safe to have together)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true)
             setTurnScreenOn(true)
-        } else {
-            @Suppress("DEPRECATION")
-            window.addFlags(
-                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
-                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON  or
-                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-            )
         }
 
         super.onCreate(savedInstanceState)
@@ -70,6 +75,11 @@ class IncomingCallActivity : AppCompatActivity() {
 
         // Start CometChat init in background so it's ready when user taps Accept
         initCometChat()
+
+        // If launched from the notification's Accept button, auto-accept once ready
+        if (intent.getBooleanExtra("auto_accept", false)) {
+            acceptCall()
+        }
     }
 
     private fun initCometChat() {

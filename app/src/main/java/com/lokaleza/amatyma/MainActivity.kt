@@ -1,10 +1,13 @@
 package com.lokaleza.amatyma
 
 import android.Manifest
+import android.app.NotificationManager
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import android.util.Log
@@ -63,6 +66,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         requestNotificationPermission()
+        requestFullScreenIntentPermission()
         setupBottomNavigation()
         showLoadingState(true)
         ensureCometChatLogin()
@@ -182,6 +186,21 @@ class MainActivity : AppCompatActivity() {
             binding.fragmentContainer.setOnClickListener(null)
             showLoadingState(true)
             loginToCometChat(uid)
+        }
+    }
+
+    private fun requestFullScreenIntentPermission() {
+        // Android 14+ requires explicit user grant for USE_FULL_SCREEN_INTENT.
+        // Without it the incoming call screen never shows over the lock screen.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            val nm = getSystemService(NotificationManager::class.java)
+            if (!nm.canUseFullScreenIntent()) {
+                startActivity(
+                    Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT).apply {
+                        data = Uri.parse("package:$packageName")
+                    }
+                )
+            }
         }
     }
 
