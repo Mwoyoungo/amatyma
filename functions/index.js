@@ -133,33 +133,37 @@ exports.getCometChatAuthToken = functions.https.onCall(async (data, context) => 
 exports.onCallInitiated = functions.https.onRequest(async (req, res) => {
   try {
     const body = req.body;
-
-    // CometChat sends the payload under data.entities
     const trigger = body.trigger;
+    const message = body.data?.message;
 
-    // Only handle outgoing call initiation
-    if (trigger !== 'after_call') {
+    // CometChat sends call events as message_sent with category=call
+    if (trigger !== 'message_sent' || message?.category !== 'call') {
       return res.status(200).send('ignored');
     }
 
-    const callData = body.data?.entities?.on?.entity;
-    if (!callData) {
-      return res.status(200).send('no call entity');
+    // Only notify on initiated calls — ignore cancelled/rejected/ended
+    const action = message.data?.action;
+    if (action !== 'initiated') {
+      return res.status(200).send('not initiated: ' + action);
     }
 
-    const callType   = callData.type;          // 'audio' or 'video'
-    const sessionId  = callData.sessionid;
-    const receiverId = callData.receiver?.uid;
-    const callerName = callData.initiator?.name || 'Someone';
-    const callStatus = callData.status;
+    const callType   = message.type;                                // 'audio' or 'video'
+    // Try multiple paths for sessionId — CometChat structure varies
+    const sessionId  = message.data?.entities?.on?.entity?.sessionid
+                    || message.data?.entities?.on?.sessionid
+                    || message.sessionid
+                    || message.id
+                    || 'unknown';
+    const receiverId = message.receiver;                            // callee UID (lowercase from CometChat)
+    const callerName = message.data?.entities?.by?.entity?.name
+                    || message.data?.entities?.for?.entity?.name
+                    || 'Someone';
 
-    // Only notify on initiated calls (not accepted/rejected/ended)
-    if (callStatus !== 'initiated') {
-      return res.status(200).send('not initiated');
-    }
+    console.log(`call initiated — caller: ${callerName}, receiver: ${receiverId}, sessionId: ${sessionId}, type: ${callType}`);
 
-    if (!receiverId || !sessionId) {
-      return res.status(200).send('missing receiver or session');
+    if (!receiverId) {
+      console.log('missing receiverId');
+      return res.status(200).send('missing receiver');
     }
 
     // Get callee's FCM tokens from Firestore
@@ -167,6 +171,8 @@ exports.onCallInitiated = functions.https.onRequest(async (req, res) => {
       .collection('users')
       .doc(receiverId)
       .get();
+
+    console.log(`Firestore doc exists: ${userDoc.exists}, data: ${JSON.stringify(userDoc.data())}`);
 
     const fcmTokens = userDoc.data()?.fcmTokens || [];
     if (fcmTokens.length === 0) {

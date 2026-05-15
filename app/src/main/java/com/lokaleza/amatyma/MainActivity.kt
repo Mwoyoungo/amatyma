@@ -200,15 +200,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun saveFcmToken(uid: String) {
         FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
-            FirebaseFirestore.getInstance()
-                .collection("users").document(uid)
-                .update("fcmTokens", FieldValue.arrayUnion(token))
-                .addOnFailureListener {
-                    // Document might not exist yet — use set with merge
-                    FirebaseFirestore.getInstance()
-                        .collection("users").document(uid)
-                        .set(mapOf("fcmTokens" to listOf(token)), com.google.firebase.firestore.SetOptions.merge())
-                }
+            val db = FirebaseFirestore.getInstance()
+            val opts = com.google.firebase.firestore.SetOptions.merge()
+            val payload = mapOf("fcmTokens" to FieldValue.arrayUnion(token))
+
+            // Save under the real Firebase UID
+            db.collection("users").document(uid).set(payload, opts)
+
+            // Also save under lowercase UID — CometChat lowercases UIDs in webhooks
+            val lowerUid = uid.lowercase()
+            if (lowerUid != uid) {
+                db.collection("users").document(lowerUid).set(payload, opts)
+            }
         }
     }
 
