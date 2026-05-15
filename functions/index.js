@@ -7,10 +7,13 @@
 
 const functions = require('firebase-functions/v1');
 const axios = require('axios');
+const admin = require('firebase-admin');
+
+admin.initializeApp();
 
 // Get CometChat configuration from environment variables
 // Set these using: firebase functions:config:set cometchat.api_key="YOUR_KEY"
-const COMETCHAT_APP_ID = functions.config().cometchat.app_id || "281421fd397d9bf6";
+const COMETCHAT_APP_ID = functions.config().cometchat.app_id || "1678655d5116b4d9e";
 const COMETCHAT_REGION = functions.config().cometchat.region || "us";
 const COMETCHAT_API_KEY = functions.config().cometchat.api_key;
 
@@ -118,6 +121,115 @@ exports.getCometChatAuthToken = functions.https.onCall(async (data, context) => 
 /**
  * Helper function to generate auth token
  */
+/**
+ * CometChat webhook — fires when a call is initiated.
+ * Reads the callee's FCM tokens from Firestore and sends a
+ * high-priority FCM notification so the phone rings even when
+ * the app is killed.
+ *
+ * Set this URL as a CometChat webhook for the "call" trigger:
+ *   https://<region>-<project>.cloudfunctions.net/onCallInitiated
+ */
+exports.onCallInitiated = functions.https.onRequest(async (req, res) => {
+  try {
+    const body = req.body;
+
+    // CometChat sends the payload under data.entities
+    const trigger = body.trigger;
+
+    // Only handle outgoing call initiation
+    if (trigger !== 'after_call') {
+      return res.status(200).send('ignored');
+    }
+
+    const callData = body.data?.entities?.on?.entity;
+    if (!callData) {
+      return res.status(200).send('no call entity');
+    }
+
+    const callType   = callData.type;          // 'audio' or 'video'
+    const sessionId  = callData.sessionid;
+    const receiverId = callData.receiver?.uid;
+    const callerName = callData.initiator?.name || 'Someone';
+    const callStatus = callData.status;
+
+    // Only notify on initiated calls (not accepted/rejected/ended)
+    if (callStatus !== 'initiated') {
+      return res.status(200).send('not initiated');
+    }
+
+    if (!receiverId || !sessionId) {
+      return res.status(200).send('missing receiver or session');
+    }
+
+    // Get callee's FCM tokens from Firestore
+    const userDoc = await admin.firestore()
+      .collection('users')
+      .doc(receiverId)
+      .get();
+
+    const fcmTokens = userDoc.data()?.fcmTokens || [];
+    if (fcmTokens.length === 0) {
+      console.log(`No FCM tokens for user: ${receiverId}`);
+      return res.status(200).send('no tokens');
+    }
+
+    // Send high-priority FCM to all the user's devices
+    const notification = {
+      title: `Incoming ${callType} call`,
+      body: `${callerName} is calling you`,
+    };
+
+    const data = {
+      type:       'incoming_call',
+      callType:   callType,
+      sessionId:  sessionId,
+      callerName: callerName,
+      callerUid:  callData.initiator?.uid || '',
+    };
+
+    const sendResults = await Promise.allSettled(
+      fcmTokens.map(token =>
+        admin.messaging().send({
+          token,
+          notification,
+          data,
+          android: {
+            priority: 'high',
+            notification: {
+              channelId:  'incoming_calls',
+              priority:   'max',
+              sound:      'default',
+              visibility: 'public',
+            },
+          },
+        })
+      )
+    );
+
+    // Remove any stale tokens that FCM rejected
+    const staleTokens = fcmTokens.filter((_, i) =>
+      sendResults[i].status === 'rejected'
+    );
+
+    if (staleTokens.length > 0) {
+      await admin.firestore()
+        .collection('users')
+        .doc(receiverId)
+        .update({
+          fcmTokens: admin.firestore.FieldValue.arrayRemove(...staleTokens),
+        });
+    }
+
+    console.log(`Call notification sent to ${receiverId}, tokens: ${fcmTokens.length}`);
+    return res.status(200).send('ok');
+
+  } catch (err) {
+    console.error('onCallInitiated error:', err);
+    return res.status(500).send('error');
+  }
+});
+
 async function generateAuthToken(data, context) {
   const { uid } = data;
 
