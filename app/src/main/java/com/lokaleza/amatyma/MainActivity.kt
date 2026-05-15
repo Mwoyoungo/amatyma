@@ -1,7 +1,12 @@
 package com.lokaleza.amatyma
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -57,6 +62,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        requestNotificationPermission()
         setupBottomNavigation()
         showLoadingState(true)
         ensureCometChatLogin()
@@ -176,6 +182,19 @@ class MainActivity : AppCompatActivity() {
             binding.fragmentContainer.setOnClickListener(null)
             showLoadingState(true)
             loginToCometChat(uid)
+        }
+    }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    1001
+                )
+            }
         }
     }
 
