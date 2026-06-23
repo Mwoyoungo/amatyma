@@ -142,3 +142,72 @@ This is the critical part for the iOS port — replicate this exactly.
 > ⚠️ **Security:** rotate the previously-shared creds before launch (FastPix secret, FastPix
 > signing key, GitHub PAT). `app/google-services.json` is committed — fine for a private repo;
 > avoid making the repo public with it in history.
+
+---
+
+## 8. How this was built — Windows-first, CI-verified (the essence)
+
+**Context:** the iOS port was started on a **Windows machine with no Mac available** (the
+Mac wouldn't power on) and **no Apple Developer Program**. That's fine — and worth
+understanding, because it shapes how to continue.
+
+**Key realisations that made progress possible without a Mac:**
+- **Writing SwiftUI needs no Mac.** The Xcode project + all Swift source is plain text,
+  authored on Windows straight into `ios/`.
+- **The iOS Simulator needs no Apple Developer account and no code-signing.** The $99/yr
+  program is only for real devices, TestFlight, and the App Store — all launch-time.
+- **A simulator build can be verified for free on cloud macOS CI.** So we don't fly blind:
+  every change is compiled on a real macOS runner.
+
+**The setup that delivers this:**
+- `ios/` is an **XcodeGen** project (`ios/project.yml`) — no committed `.xcodeproj`; it's
+  generated with `xcodegen generate`. Dependencies (Firebase) come via **Swift Package
+  Manager**, declared in `project.yml` (no CocoaPods for the social side).
+- **`.github/workflows/ios-build.yml`** runs on **`macos-15` + latest-stable Xcode**,
+  does `xcodegen generate` then `xcodebuild -sdk iphonesimulator … CODE_SIGNING_ALLOWED=NO build`.
+  Green = the app genuinely compiles. **No account, no signing, free minutes.**
+  - Gotcha already solved: XcodeGen writes the **Xcode 16 project format (77)**, so the
+    runner must use Xcode 16 (hence `macos-15` + `setup-xcode@latest-stable`). An older
+    runner fails with *"future Xcode project file format (77)"*.
+
+**What this proves vs. what still needs a Mac:**
+- ✅ Proven on CI: the project generates and **compiles** for iOS (Firebase SPM resolves,
+  all Swift builds). This is a *real, building* app — not mockups.
+- 🖥️ Still needs a Mac (any: revived, MacinCloud ~$1/hr, EC2 Mac, or live Xcode Cloud once
+  enrolled): **running it live in the Simulator**, interactive testing (taps, video
+  playback, PhotosPicker), dropping in `GoogleService-Info.plist` at runtime, the
+  **CometChat iOS UI Kit** native integration, code-signing, TestFlight, and the App Store.
+
+## 9. iOS port status & how to continue
+
+**Done (CI-green, `ios/`):**
+- XcodeGen project + Firebase SPM (Auth/Firestore/Storage/Functions/Messaging)
+- `FirebaseApp.configure()`, email/password **auth gate** (`AuthStore`)
+- **Live feed** reading `videoPosts` (`FeedStore`), **multi-type post card**
+  (video poster / image carousel / text) — `FeedView`, `PostCardView`
+- Theme (`Ama` palette) mirroring the Android colors
+
+**Remaining iOS work (each writable on Windows, push → CI compiles):**
+1. **AVPlayer** video playback in the feed + **Reels** (vertical pager)
+2. **Stores**: `Likes`, `Following`, `Stories`, `Identity` (overlay `profiles/{uid}`) as
+   `ObservableObject`s with Firestore listeners (port the Kotlin logic 1:1)
+3. **Create**: Photo (PhotosPicker, multi) + Text + Video (FastPix via `URLSession`)
+4. **Stories** (tray + full-screen viewer), **Profile** + edit, **Search**, **Comments/replies**
+5. **Push**: register APNs token into `users/{uid}.fcmTokens`; route `data.type` (§4)
+6. **Chat**: CometChat iOS UI Kit + the auth bridge (§4) — use the `cometchat-ios*` skills
+
+**Two ways to continue:**
+- **On Windows (no Mac):** write SwiftUI in `ios/`, push, watch the **iOS build** Action go
+  green (read the CI log for any `error:` and fix). The whole social UI can be built this way.
+- **On a Mac (when you get one):**
+  ```bash
+  cd ios
+  brew install xcodegen && xcodegen generate
+  # add Amatyma/GoogleService-Info.plist (Firebase console → iOS app, bundle com.lokaleza.amatyma)
+  open Amatyma.xcodeproj        # run in the Simulator, iterate live
+  ```
+  A **free Apple ID** is enough to run in the Simulator and on a device; add the **$99
+  program** only for TestFlight / App Store.
+
+> Build is verified green as of the first scaffold (GitHub Actions run on `macos-15`).
+> The backend is shared and live, so the moment it runs on a Mac it pulls real data.
