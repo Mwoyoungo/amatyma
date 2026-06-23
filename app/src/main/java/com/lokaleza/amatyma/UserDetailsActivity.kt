@@ -7,12 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.cometchat.chat.constants.CometChatConstants
-import com.cometchat.chat.core.Call
 import com.cometchat.chat.core.CometChat
 import com.cometchat.chat.exceptions.CometChatException
 import com.cometchat.chat.models.User
-import com.cometchat.chatuikit.calls.CometChatCallActivity
 import com.lokaleza.amatyma.databinding.ActivityUserDetailsBinding
 
 class UserDetailsActivity : AppCompatActivity() {
@@ -76,44 +73,5 @@ class UserDetailsActivity : AppCompatActivity() {
                 }
             )
         }
-
-        binding.btnAudioCall.setOnClickListener {
-            initiateCall(user, CometChatConstants.CALL_TYPE_AUDIO)
-        }
-
-        binding.btnVideoCall.setOnClickListener {
-            initiateCall(user, CometChatConstants.CALL_TYPE_VIDEO)
-        }
-    }
-
-    private fun initiateCall(user: User, callType: String) {
-        binding.btnAudioCall.isEnabled = false
-        binding.btnVideoCall.isEnabled = false
-
-        val call = Call(user.uid, CometChatConstants.RECEIVER_TYPE_USER, callType)
-        CometChat.initiateCall(call, object : CometChat.CallbackListener<Call>() {
-            override fun onSuccess(c: Call) {
-                runOnUiThread {
-                    binding.btnAudioCall.isEnabled = true
-                    binding.btnVideoCall.isEnabled = true
-                    CometChatCallActivity.launchOutgoingCallScreen(this@UserDetailsActivity, c, null)
-                }
-            }
-
-            override fun onError(e: CometChatException?) {
-                runOnUiThread {
-                    binding.btnAudioCall.isEnabled = true
-                    binding.btnVideoCall.isEnabled = true
-                    Toast.makeText(this@UserDetailsActivity, "Call failed: ${e?.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
-    }
-
-    // Prevent screen rotation from dimming the buttons mid-call-initiation
-    override fun onResume() {
-        super.onResume()
-        binding.btnAudioCall.isEnabled = true
-        binding.btnVideoCall.isEnabled = true
     }
 }

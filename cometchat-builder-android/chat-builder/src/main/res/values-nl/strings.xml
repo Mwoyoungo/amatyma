@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="builder_name" translatable="false">CometChat Team Messenger</string>
+    <string name="builder_bottom_nav_chats" translatable="true">Gesprekken</string>
+    <string name="builder_bottom_nav_calls" translatable="true">Oproepen</string>
+    <string name="builder_bottom_nav_users" translatable="true">Gebruikers</string>
+    <string name="builder_bottom_nav_groups" translatable="true">Groepen</string>
+
+    <string name="builder_login" translatable="true">Inloggen</string>
+    <string name="builder_continue_with_google" translatable="true">Doorgaan met Google</string>
+    <string name="builder_no_banned_members" translatable="true">Geen verbannen leden</string>
+    <string name="builder_banned_few_members_to_show_them_here" translatable="true">Weinig verbannen leden om hier weer te geven</string>
+    <string name="builder_failed_to_sign_in_with_google_no_account_found" translatable="true">Inloggen met Google mislukt, geen account gevonden.</string>
+    <string name="builder_google_sign_in_failed" translatable="true">"Google inloggen mislukt: "</string>
+    <string name="builder_group" translatable="true">groep</string>
+    <string name="builder_btn_leave" translatable="true">Verlaten</string>
+    <string name="builder_leave_this_group" translatable="true">Deze groep verlaten?</string>
+    <string name="builder_leave_this_group_description" translatable="true">Weet je zeker dat je deze groep wilt verlaten? Je ontvangt geen berichten meer van deze chat.</string>
+    <string name="builder_btn_cancel" translatable="true">Annuleren</string>
+    <string name="builder_transfer_ownership_description" translatable="true">Weet je zeker dat je het eigendom wilt overdragen? Dit kan niet ongedaan worden gemaakt en de nieuwe eigenaar krijgt de volledige controle.</string>
+    <string name="builder_transfer_ownership_information" translatable="true">Je moet het eigendom van deze groep overdragen aan een ander groepslid voordat je deze groep verlaat.</string>
+    <string name="builder_btn_continue" translatable="true">Doorgaan</string>
+    <string name="builder_delete_and_exit" translatable="true">Verwijderen en verlaten?</string>
+    <string name="builder_delete_and_exit_action" translatable="true">Verwijderen en verlaten</string>
+    <string name="builder_delete_and_exit_description" translatable="true">Weet je zeker dat je deze chat wilt verwijderen en de groep wilt verlaten? Deze actie kan niet ongedaan worden gemaakt.</string>
+    <string name="builder_btn_delete" translatable="true">Verwijderen</string>
+    <string name="builder_add" translatable="true">Toevoegen</string>
+    <string name="builder_member" translatable="true">Lid</string>
+    <string name="builder_members" translatable="true">Leden</string>
+    <string name="builder_base_message" translatable="true">baseMessage</string>
+    <string name="builder_user" translatable="true">gebruiker</string>
+    <string name="builder_session_id" translatable="true">sessionId</string>
+    <string name="builder_call_type" translatable="true">callType</string>
+    <string name="builder_not_logged_in" translatable="true">Je bent niet ingelogd. Log in en probeer het opnieuw.</string>
+    <string name="builder_transfer_ownership" translatable="true">Eigendom overdragen</string>
+
+    <string name="builder_call_details" translatable="true">Oproepdetails</string>
+    <string name="builder_call_details_history" translatable="true">Geschiedenis</string>
+    <string name="builder_call_details_participants" translatable="true">Deelnemers</string>
+    <string name="builder_call_details_recordings" translatable="true">Opnames</string>
+    <string name="builder_call_outgoing" translatable="true">Uitgaand</string>
+    <string name="builder_call_missed" translatable="true">Gemist</string>
+    <string name="builder_call_incoming" translatable="true">Inkomend</string>
+    <string name="builder_no_recordings_found" translatable="true">Geen opnames gevonden</string>
+
+    <string name="builder_accept" translatable="true">Accepteren</string>
+    <string name="builder_decline" translatable="true">Weigeren</string>
+    <string name="builder_incoming_s_call" translatable="true">Inkomende %s Oproep</string>
+    <string name="builder_user_info" translatable="true">Gebruikersinfo</string>
+    <string name="builder_voice" translatable="true">Stem</string>
+    <string name="builder_video" translatable="true">Video</string>
+
+    <string name="builder_delete" translatable="true">Verwijder Chat</string>
+    <string name="builder_delete_chat_title" translatable="true">Deze chat verwijderen?</string>
+    <string name="builder_delete_chat_subtitle" translatable="true">Weet je zeker dat je deze chat wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.</string>
+    <string name="builder_delete_chat_positive_button" translatable="true">Verwijderen</string>
+    <string name="builder_delete_chat_negative_button" translatable="true">Annuleren</string>
+    <string name="builder_delete_chat_error" translatable="true">Verwijderen mislukt</string>
+    <string name="builder_delete_chat_success" translatable="true">Chat verwijderd</string>
+
+    <string name="builder_block" translatable="true">Blokkeren</string>
+    <string name="builder_block_user_title" translatable="true">Deze contactpersoon blokkeren?</string>
+    <string name="builder_block_user_subtitle" translatable="true">Weet je zeker dat je deze contactpersoon wilt blokkeren? Je ontvangt geen berichten meer van hen.</string>
+    <string name="builder_block_user_positive_button" translatable="true">Blokkeren</string>
+    <string name="builder_block_user_negative_button" translatable="true">Annuleren</string>
+    <string name="builder_block_user_error" translatable="true">Blokkeren mislukt</string>
+    <string name="builder_block_user_success" translatable="true">Gebruiker geblokkeerd</string>
+
+    <string name="builder_unblock" translatable="true">Blokkade opheffen</string>
+    <string name="builder_unblock_user_title" translatable="true">Deze contactpersoon deblokkeren?</string>
+    <string name="builder_unblock_user_subtitle" translatable="true">Weet je zeker dat je deze contactpersoon wilt deblokkeren?</string>
+    <string name="builder_unblock_user_positive_button" translatable="true">Deblokkeren</string>
+    <string name="builder_unblock_user_negative_button" translatable="true">Annuleren</string>
+    <string name="builder_unblock_user_error" translatable="true">Deblokkeren mislukt</string>
+    <string name="builder_unblock_user_success" translatable="true">Gebruiker deblokkeren</string>
+    <string name="builder_message_id" translatable="true">message_id</string>
+    <string name="builder_choose_sample_user" translatable="true">Kies een voorbeeldgebruiker</string>
+    <string name="builder_continue" translatable="true">Doorgaan</string>
+    <string name="builder_or" translatable="true">Of</string>
+    <string name="builder_change" translatable="true">Wijzig</string>
+    <string name="builder_app_credentials" translatable="true">App-inloggegevens</string>
+    <string name="builder_enter_uid" translatable="true">Voer UID in</string>
+    <string name="builder_enter_your_uid" translatable="true">Voer je UID in</string>
+    <string name="builder_error_invalid_user_or_uid_login" translatable="true">Kies een gebruiker of voer de juiste UID in</string>
+    <string name="builder_shared_pref" translatable="true">AppSharedPref</string>
+    <string name="builder_cred_id" translatable="true">App-ID</string>
+    <string name="builder_cred_region" translatable="true">App-regio</string>
+    <string name="builder_cred_auth" translatable="true">App-authenticatiesleutel</string>
+    <string name="builder_region" translatable="true">Regio</string>
+    <string name="builder_region_us" translatable="true">VS</string>
+    <string name="builder_region_eu" translatable="true">EU</string>
+    <string name="builder_region_in" translatable="true">IN</string>
+    <string name="builder_app_id" translatable="true">App-ID</string>
+    <string name="builder_app_id_hint" translatable="true">Voer de app-ID in</string>
+    <string name="builder_auth_key" translatable="true">Authenticatiesleutel</string>
+    <string name="builder_auth_key_hint" translatable="true">Voer de authenticatiesleutel in</string>
+    <string name="builder_please_select_app_region" translatable="true">Selecteer de app-regio</string>
+    <string name="builder_invalid_app_id" translatable="true">Voer een geldige app-ID in</string>
+    <string name="builder_invalid_auth_token" translatable="true">Voer een geldige authenticatietoken in</string>
+    <string name="builder_new_group" translatable="true">Nieuwe Groep</string>
+    <string name="builder_group_type" translatable="true">Type</string>
+    <string name="builder_group_name" translatable="true">Naam</string>
+    <string name="builder_group_hint_name" translatable="true">Voer de groepsnaam in</string>
+    <string name="builder_password" translatable="true">Wachtwoord</string>
+    <string name="builder_hint_enter_the_password" translatable="true">Voer het wachtwoord in</string>
+    <string name="builder_btn_create_group" translatable="true">Groep Aanmaken</string>
+    <string name="builder_create_conversation" translatable="true">Gesprek Aanmaken</string>
+    <string name="builder_logout" translatable="true">Uitloggen</string>
+    <string name="builder_group_info" translatable="true">Groep Informatie</string>
+    <string name="builder_no_longer_part_of_this_group" translatable="true">Je bent geen lid meer van deze groep</string>
+    <string name="builder_view_members" translatable="true">Bekijk Leden</string>
+    <string name="builder_add_members" translatable="true">Voeg Leden Toe</string>
+    <string name="builder_banned_members" translatable="true">Verbannen Leden</string>
+    <string name="builder_view_members_chip" translatable="true">Bekijk \nLeden</string>
+    <string name="builder_add_members_chip" translatable="true">Voeg \nLeden Toe</string>
+    <string name="builder_banned_members_chip" translatable="true">Verbannen \nLeden</string>
+    <string name="builder_leave" translatable="true">Verlaten</string>
+    <string name="builder_block_user_unable_to_send_message" translatable="true">Je kunt geen bericht sturen naar deze groep omdat je geen lid meer bent.</string>
+    <string name="builder_unblock_user" translatable="true">Deblokkeer Gebruiker</string>
+    <string name="builder_description" translatable="true">Beschrijving</string>
+    <string name="builder_steps_to_reproduce" translatable="true">Stappen om te reproduceren</string>
+    <string name="builder_join_group" translatable="true">Groep Laten Betreden</string>
+    <string name="builder_type" translatable="true">Type</string>
+    <string name="builder_enter_the_password" translatable="true">Voer het Wachtwoord in</string>
+    <string name="builder_something_went_wrong_please_try_again" translatable="true">Er ging iets mis. Probeer het opnieuw.</string>
+    <string name="builder_retry" translatable="true">Opnieuw Proberen</string>
+    <string name="builder_looks_like_something_went_wrong_n_please_try_again" translatable="true">Het lijkt erop dat er iets mis is gegaan.\n Probeer het opnieuw.</string>
+    <string name="builder_type_public" translatable="true">Openbaar</string>
+    <string name="builder_transfer_ownership_text" translatable="true">Eigendom Overdragen</string>
+    <string name="builder_type_private" translatable="true">Privé</string>
+    <string name="builder_type_protected" translatable="true">Beveiligd</string>
+    <string name="builder_thread_title" translatable="true">Thread</string>
+    <string name="builder_error_conversations_title" translatable="true">Oeps!</string>
+    <string name="builder_group_members_empty_title" translatable="true">Geen Leden Beschikbaar</string>
+    <string name="builder_group_member_empty_subtitle" translatable="true">Voeg leden toe aan de groep en zie ze hier verschijnen.</string>
+    <string name="builder_search" translatable="true">Zoeken</string>
+    <string name="builder_new_chat" translatable="true">Nieuw Gesprek</string>
+    <string name="builder_report" translatable="true">Rapport Beginnen</string>
+    <string name="builder_has_blocked_you" translatable="true">heeft je geblokkeerd</string>
+    <string name="builder_you_have_blocked_this_user" translatable="true">Je hebt deze gebruiker geblokkeerd</string>
+    <string name="builder_unblock_message" translatable="true">Je kunt geen bericht sturen omdat de gebruiker is geblokkeerd</string>
+    <string name="builder_participant_scope_with_group" translatable="true">
+    Alleen groepsbeheerders kunnen deze actie uitvoeren. Gebruiker %1$s heeft de rol \'deelnemer\' in groep %2$s.
+    </string>
+    <string name="builder_participant_scope_without_group" translatable="true">
+    Alleen groepsbeheerders kunnen deze actie uitvoeren. Gebruiker %1$s heeft de rol \'deelnemer\'.
+    </string>
+</resources>

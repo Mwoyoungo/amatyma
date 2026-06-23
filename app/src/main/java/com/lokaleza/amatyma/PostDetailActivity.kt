@@ -1,4 +1,4 @@
-package com.lokaleza.amatyma
+﻿package com.lokaleza.amatyma
 
 import android.content.Intent
 import android.os.Bundle
@@ -138,8 +138,8 @@ class PostDetailActivity : AppCompatActivity() {
             binding.ivPlayButton.visibility = View.GONE
 
             binding.ivPostImage.load(mediaUrl) {
-                placeholder(R.drawable.ic_launcher_background)
-                error(R.drawable.ic_launcher_background)
+                placeholder(R.drawable.ic_default_avatar)
+                error(R.drawable.ic_default_avatar)
             }
         }
     }
@@ -159,8 +159,8 @@ class PostDetailActivity : AppCompatActivity() {
                     binding.tvBusinessCategory.text = "🏗️ $category"
 
                     binding.ivBusinessLogo.load(logoUrl) {
-                        placeholder(R.drawable.ic_launcher_background)
-                        error(R.drawable.ic_launcher_background)
+                        placeholder(R.drawable.ic_default_avatar)
+                        error(R.drawable.ic_default_avatar)
                     }
 
                     // TODO: Load actual stats

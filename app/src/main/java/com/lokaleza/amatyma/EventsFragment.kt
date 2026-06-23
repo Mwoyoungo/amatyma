@@ -1,4 +1,4 @@
-package com.lokaleza.amatyma
+﻿package com.lokaleza.amatyma
 
 import android.content.Intent
 import android.os.Bundle
@@ -157,14 +157,14 @@ class EventsAdapter(
 
             // Load profile image
             ivProfile.load(event.profileImage) {
-                placeholder(R.drawable.ic_launcher_background)
-                error(R.drawable.ic_launcher_background)
+                placeholder(R.drawable.ic_default_avatar)
+                error(R.drawable.ic_default_avatar)
             }
 
             // Load event image
             ivHero.load(event.heroImage) {
-                placeholder(R.drawable.ic_launcher_background)
-                error(R.drawable.ic_launcher_background)
+                placeholder(R.drawable.ic_default_avatar)
+                error(R.drawable.ic_default_avatar)
             }
 
             // Navigate to public business profile

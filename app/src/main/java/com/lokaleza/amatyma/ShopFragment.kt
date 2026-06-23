@@ -1,4 +1,4 @@
-package com.lokaleza.amatyma
+﻿package com.lokaleza.amatyma
 
 import android.content.Intent
 import android.os.Bundle
@@ -240,8 +240,8 @@ class ProductAdapter(
             // Load first image
             if (product.images.isNotEmpty()) {
                 ivProductImage.load(product.images[0]) {
-                    placeholder(R.drawable.ic_launcher_background)
-                    error(R.drawable.ic_launcher_background)
+                    placeholder(R.drawable.ic_default_avatar)
+                    error(R.drawable.ic_default_avatar)
                 }
             }
 

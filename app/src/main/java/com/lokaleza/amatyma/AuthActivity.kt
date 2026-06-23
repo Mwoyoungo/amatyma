@@ -4,6 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.lokaleza.amatyma.databinding.ActivityAuthBinding
@@ -17,8 +21,18 @@ class AuthActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Keep the login button above the keyboard/nav bar on Android 15+ edge-to-edge devices.
+        // fitsSystemWindows on the ScrollView handles the nav bar; this listener handles the IME.
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
+            val imeInsets = windowInsets.getInsets(WindowInsetsCompat.Type.ime())
+            val navBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
+            view.updatePadding(bottom = maxOf(imeInsets.bottom, navBarInsets.bottom))
+            windowInsets
+        }
 
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
@@ -39,27 +53,26 @@ class AuthActivity : AppCompatActivity() {
     private fun checkExistingAuth() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            // User is logged in, check profile status
             firestore.collection("users").document(currentUser.uid)
                 .get()
                 .addOnSuccessListener { document ->
-                    if (document.exists() && document.contains("displayName")) {
-                        // Profile complete, go to main activity
+                    // Fix 3: must check cometChatSynced too — displayName alone doesn't mean
+                    // CometChat user was created. Without it MainActivity will fail to log in.
+                    val hasProfile = document.exists() && document.contains("displayName")
+                    val cometChatSynced = document.getBoolean("cometChatSynced") ?: false
+                    if (hasProfile && cometChatSynced) {
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
                     } else {
-                        // Profile incomplete, go to setup
                         startActivity(Intent(this, ProfileSetupActivity::class.java))
                         finish()
                     }
                 }
                 .addOnFailureListener {
-                    // Error checking profile, show auth screen
                     setupUI()
                     setupClickListeners()
                 }
         } else {
-            // Not logged in, show auth screen
             setupUI()
             setupClickListeners()
         }
@@ -74,10 +87,12 @@ class AuthActivity : AppCompatActivity() {
             binding.btnPrimary.text = "Sign Up"
             binding.tvToggle.text = "Already have an account? Login"
             binding.tilUsername.visibility = View.VISIBLE
+            binding.tvForgotPassword.visibility = View.GONE
         } else {
             binding.btnPrimary.text = "Login"
             binding.tvToggle.text = "Don't have an account? Sign Up"
             binding.tilUsername.visibility = View.GONE
+            binding.tvForgotPassword.visibility = View.VISIBLE
         }
         hideError()
     }
@@ -98,6 +113,10 @@ class AuthActivity : AppCompatActivity() {
         binding.tvToggle.setOnClickListener {
             isSignUpMode = !isSignUpMode
             updateUI()
+        }
+
+        binding.tvForgotPassword.setOnClickListener {
+            showForgotPasswordDialog()
         }
     }
 
@@ -171,20 +190,20 @@ class AuthActivity : AppCompatActivity() {
                         .get()
                         .addOnSuccessListener { document ->
                             showLoading(false)
-
-                            if (document.exists() && document.contains("displayName")) {
-                                // Profile complete, go to main app
+                            // Fix 3: same check as checkExistingAuth — need both displayName
+                            // and cometChatSynced before allowing entry to MainActivity.
+                            val hasProfile = document.exists() && document.contains("displayName")
+                            val cometChatSynced = document.getBoolean("cometChatSynced") ?: false
+                            if (hasProfile && cometChatSynced) {
                                 startActivity(Intent(this, MainActivity::class.java))
                                 finish()
                             } else {
-                                // Profile incomplete, go to setup
                                 startActivity(Intent(this, ProfileSetupActivity::class.java))
                                 finish()
                             }
                         }
                         .addOnFailureListener {
                             showLoading(false)
-                            // Assume profile incomplete
                             startActivity(Intent(this, ProfileSetupActivity::class.java))
                             finish()
                         }
@@ -193,6 +212,51 @@ class AuthActivity : AppCompatActivity() {
             .addOnFailureListener { e ->
                 showLoading(false)
                 showError("Login failed: ${e.message}")
+            }
+    }
+
+    private fun showForgotPasswordDialog() {
+        val emailInput = android.widget.EditText(this).apply {
+            inputType = android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+            hint = "Enter your email"
+            // Pre-fill if the user already typed their email on the login screen
+            val existingEmail = binding.etEmail.text.toString().trim()
+            if (existingEmail.isNotEmpty()) setText(existingEmail)
+            setPadding(48, 32, 48, 16)
+        }
+
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Reset Password")
+            .setMessage("We'll send a reset link to your email.")
+            .setView(emailInput)
+            .setPositiveButton("Send") { _, _ ->
+                val email = emailInput.text.toString().trim()
+                if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    showError("Please enter a valid email address")
+                    return@setPositiveButton
+                }
+                sendPasswordReset(email)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun sendPasswordReset(email: String) {
+        showLoading(true)
+        auth.sendPasswordResetEmail(email)
+            .addOnSuccessListener {
+                showLoading(false)
+                androidx.appcompat.app.AlertDialog.Builder(this)
+                    .setTitle("Check your email")
+                    .setMessage("A reset link has been sent to $email. Check your inbox and follow the link to set a new password.")
+                    .setPositiveButton("OK", null)
+                    .show()
+            }
+            .addOnFailureListener { e ->
+                showLoading(false)
+                // Firebase returns a generic error for unknown emails intentionally (security).
+                // Show a neutral message so we don't leak whether an account exists.
+                showError("Could not send reset email. Check the address and try again.")
             }
     }
 

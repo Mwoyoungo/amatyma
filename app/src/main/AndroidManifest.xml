@@ -5,14 +5,21 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
-    <!-- Permissions for voice/video calling -->
+    <!-- Permissions for chat media (camera photos, voice messages) -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <!-- Native VoIP call ringing via Android Telecom (ConnectionService) -->
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!--
         App-level theme is CometChat-compatible so UIKit call activities
@@ -62,6 +69,12 @@
             android:exported="false"
             android:theme="@style/Theme.Amatyma" />
 
+        <!-- ── Social shell (Jetpack Compose, non-CometChat) ── -->
+        <activity
+            android:name=".social.HomeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Amatyma" />
+
         <!-- ── CometChat screens (inherit app CometChat theme) ── -->
         <activity
             android:name=".MainActivity"
@@ -83,15 +96,6 @@
         <activity
             android:name=".GroupDetailsActivity"
             android:exported="false" />
-
-        <activity
-            android:name=".IncomingCallActivity"
-            android:exported="true"
-            android:showOnLockScreen="true"
-            android:turnScreenOn="true"
-            android:launchMode="singleTop"
-            android:taskAffinity=""
-            android:excludeFromRecents="true" />
 
         <!-- ── Business / social screens (non-CometChat) ── -->
         <activity
@@ -183,8 +187,34 @@
         </service>
 
         <receiver
-            android:name=".CallDeclineBroadcastReceiver"
+            android:name=".MessageReplyBroadcastReceiver"
             android:exported="false" />
+
+        <!-- ── Native VoIP calling (Android Telecom) ── -->
+        <activity
+            android:name=".voip.OngoingCallActivity"
+            android:exported="false"
+            android:showOnLockScreen="true"
+            android:turnScreenOn="true"
+            android:launchMode="singleTop"
+            android:excludeFromRecents="true" />
+
+        <service
+            android:name=".voip.CallConnectionService"
+            android:exported="true"
+            android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE">
+            <intent-filter>
+                <action android:name="android.telecom.ConnectionService" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".voip.CallEventReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="CometChat_Call_Event" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

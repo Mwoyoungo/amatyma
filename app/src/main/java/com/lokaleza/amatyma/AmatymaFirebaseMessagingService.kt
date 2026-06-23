@@ -5,39 +5,56 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
-import android.os.PowerManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.Person
+import androidx.core.app.RemoteInput
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.lokaleza.amatyma.voip.CometChatVoIPManager
 
 class AmatymaFirebaseMessagingService : FirebaseMessagingService() {
 
     companion object {
-        const val CHANNEL_ID = "incoming_calls_v2"   // v2 forces channel recreation on existing installs
-        const val NOTIFICATION_ID = 9001
-        private const val RC_FULLSCREEN = 9010
-        private const val RC_ACCEPT    = 9011
-        private const val RC_DECLINE   = 9012
+        const val CHANNEL_ID_MESSAGES = "chat_messages"
+        const val KEY_REPLY_TEXT = "key_reply_text"
+        private const val MESSAGE_NOTIFICATION_ID_BASE = 20000
+        const val CHANNEL_ID_SOCIAL = "social_activity"
+        private const val SOCIAL_NOTIFICATION_ID_BASE = 30000
+
+        fun createSocialChannel(nm: NotificationManager) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                nm.createNotificationChannel(
+                    NotificationChannel(
+                        CHANNEL_ID_SOCIAL,
+                        "Amatyma Activity",
+                        NotificationManager.IMPORTANCE_HIGH
+                    ).apply {
+                        description = "Likes, comments, follows and new posts"
+                        enableVibration(true)
+                        setShowBadge(true)
+                    }
+                )
+            }
+        }
 
         fun createNotificationChannel(nm: NotificationManager) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val channel = NotificationChannel(
-                    CHANNEL_ID,
-                    "Incoming Calls",
-                    NotificationManager.IMPORTANCE_HIGH
-                ).apply {
-                    description = "Full-screen ringing for incoming calls"
-                    enableVibration(true)
-                    enableLights(true)
-                    setShowBadge(false)
-                    lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
-                }
-                nm.createNotificationChannel(channel)
+                nm.createNotificationChannel(
+                    NotificationChannel(
+                        CHANNEL_ID_MESSAGES,
+                        "Chat Messages",
+                        NotificationManager.IMPORTANCE_HIGH
+                    ).apply {
+                        description = "New message notifications"
+                        enableVibration(true)
+                        setShowBadge(true)
+                        lockscreenVisibility = NotificationCompat.VISIBILITY_PRIVATE
+                    }
+                )
             }
         }
     }
@@ -54,122 +71,112 @@ class AmatymaFirebaseMessagingService : FirebaseMessagingService() {
         super.onMessageReceived(message)
 
         val data = message.data
-        if (data["type"] != "incoming_call") return
+        when (data["type"]) {
+            "new_message" -> handleNewMessage(data)
+            "call"        -> CometChatVoIPManager.handleCallPush(this, data)
+            "social"      -> handleSocialNotification(data)
+        }
+    }
 
-        val callerName = data["callerName"] ?: "Someone"
-        val callType   = data["callType"]   ?: "audio"
-        val sessionId  = data["sessionId"]  ?: ""
-        val callerUid  = data["callerUid"]  ?: ""
+    // ─── New chat message ─────────────────────────────────────────────────────
+
+    private fun handleNewMessage(data: Map<String, String>) {
+        val senderUid  = data["senderUid"]  ?: data["conversationId"] ?: return
+        val senderName = data["senderName"] ?: "Someone"
+        val preview    = data["preview"]    ?: "New message"
+
+        // Already looking at this exact chat — let the in-app UI handle it, no notification
+        if (AmatymaApplication.activeConversationId == senderUid) {
+            Log.d("FCMService", "Suppressing message notification — chat with $senderUid is open")
+            return
+        }
 
         val nm = getSystemService(NotificationManager::class.java)
         createNotificationChannel(nm)
-
-        // Wake the screen so the full-screen intent can fire
-        val pm = getSystemService(POWER_SERVICE) as PowerManager
-        val wl = pm.newWakeLock(
-            PowerManager.FULL_WAKE_LOCK or
-            PowerManager.ACQUIRE_CAUSES_WAKEUP or
-            PowerManager.ON_AFTER_RELEASE,
-            "amatyma:IncomingCall"
-        )
-        wl.acquire(60_000L)
-
-        // Try direct activity start first (works if exemption granted)
-        try {
-            startActivity(buildCallIntent(callerName, callType, sessionId, callerUid))
-            Log.d("FCMService", "IncomingCallActivity launched directly")
-        } catch (e: Exception) {
-            Log.e("FCMService", "startActivity blocked — falling back to notification: ${e.message}")
-        }
-
-        wl.release()
-
-        showCallNotification(nm, callerName, callType, sessionId, callerUid)
+        showMessageNotification(nm, senderUid, senderName, preview)
     }
 
-    // ─── Intent builders ──────────────────────────────────────────────────────
-
-    private fun buildCallIntent(
-        callerName: String,
-        callType: String,
-        sessionId: String,
-        callerUid: String,
-        autoAccept: Boolean = false
-    ) = Intent(this, IncomingCallActivity::class.java).apply {
-        flags = Intent.FLAG_ACTIVITY_NEW_TASK or
-                Intent.FLAG_ACTIVITY_SINGLE_TOP or
-                Intent.FLAG_ACTIVITY_CLEAR_TOP
-        putExtra("caller_name", callerName)
-        putExtra("call_type",   callType)
-        putExtra("session_id",  sessionId)
-        putExtra("caller_uid",  callerUid)
-        putExtra("auto_accept", autoAccept)
-    }
-
-    // ─── Notification ─────────────────────────────────────────────────────────
-
-    private fun showCallNotification(
+    private fun showMessageNotification(
         nm: NotificationManager,
-        callerName: String,
-        callType: String,
-        sessionId: String,
-        callerUid: String
+        senderUid: String,
+        senderName: String,
+        preview: String
     ) {
-        // Tapping anywhere on the notification opens the call screen
-        val fullScreenPending = PendingIntent.getActivity(
-            this, RC_FULLSCREEN,
-            buildCallIntent(callerName, callType, sessionId, callerUid),
-            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        val notificationId = MESSAGE_NOTIFICATION_ID_BASE + senderUid.hashCode()
+
+        // Tapping the notification opens the chat with this person
+        val openChatPending = PendingIntent.getActivity(
+            this, senderUid.hashCode(),
+            Intent(this, MessagesActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                putExtra("USER_ID", senderUid)
+            },
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        // Green "Accept" button → opens IncomingCallActivity and auto-accepts
-        val acceptPending = PendingIntent.getActivity(
-            this, RC_ACCEPT,
-            buildCallIntent(callerName, callType, sessionId, callerUid, autoAccept = true),
-            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        // "Reply" inline action — the system shows a text box right on the notification.
+        // The typed text is delivered to MessageReplyBroadcastReceiver via RemoteInput,
+        // which is why this PendingIntent must stay mutable.
+        val remoteInput = RemoteInput.Builder(KEY_REPLY_TEXT).setLabel("Reply").build()
+        val replyPending = PendingIntent.getBroadcast(
+            this, notificationId,
+            Intent(this, MessageReplyBroadcastReceiver::class.java).apply {
+                putExtra("sender_uid", senderUid)
+                putExtra("notification_id", notificationId)
+            },
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
         )
+        val replyAction = NotificationCompat.Action.Builder(
+            android.R.drawable.ic_menu_send, "Reply", replyPending
+        ).addRemoteInput(remoteInput)
+            .setAllowGeneratedReplies(true)
+            .build()
 
-        // Red "Decline" button → BroadcastReceiver rejects in background (no UI shown)
-        val declinePending = PendingIntent.getBroadcast(
-            this, RC_DECLINE,
-            Intent(this, CallDeclineBroadcastReceiver::class.java)
-                .putExtra("session_id", sessionId),
-            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
+        val sender = Person.Builder().setName(senderName).setImportant(true).build()
+        val messagingStyle = NotificationCompat.MessagingStyle(Person.Builder().setName("You").build())
+            .addMessage(preview, System.currentTimeMillis(), sender)
 
-        val callIcon = if (callType == "video") android.R.drawable.ic_menu_camera
-                       else android.R.drawable.ic_menu_call
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID_MESSAGES)
+            .setSmallIcon(android.R.drawable.ic_dialog_email)
+            .setStyle(messagingStyle)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+            .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+            .setAutoCancel(true)
+            .setContentIntent(openChatPending)
+            .addAction(replyAction)
 
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(callIcon)
-            .setContentTitle("Incoming $callType call")
-            .setContentText("$callerName is calling you")
-            .setPriority(NotificationCompat.PRIORITY_MAX)
-            .setCategory(NotificationCompat.CATEGORY_CALL)
-            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-            .setOngoing(true)
-            .setAutoCancel(false)
-            .setFullScreenIntent(fullScreenPending, true)
-            .setContentIntent(fullScreenPending)
+        nm.notify(notificationId, builder.build())
+    }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            // Android 12+ — CallStyle gives the WhatsApp-style large call card
-            // with a prominent green Accept and red Decline button
-            val caller = Person.Builder()
-                .setName(callerName)
-                .setImportant(true)
-                .build()
-            builder.setStyle(
-                NotificationCompat.CallStyle
-                    .forIncomingCall(caller, declinePending, acceptPending)
-            )
-        } else {
-            // Pre-Android 12 fallback — explicit action buttons
-            builder
-                .addAction(android.R.drawable.ic_delete,     "Decline", declinePending)
-                .addAction(android.R.drawable.ic_menu_call,  "Accept",  acceptPending)
+    // ─── Social activity (likes / comments / follows / replies / new posts) ──────
+
+    private fun handleSocialNotification(data: Map<String, String>) {
+        val title = data["title"] ?: "Amatyma"
+        val body = data["body"] ?: ""
+
+        val nm = getSystemService(NotificationManager::class.java)
+        createSocialChannel(nm)
+
+        // Tap opens the app on the social surface; in-app Alerts handle deep nav.
+        val openIntent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
+        val pending = PendingIntent.getActivity(
+            this, ((data["socialType"] ?: "") + (data["postId"] ?: "")).hashCode(),
+            openIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
 
-        nm.notify(NOTIFICATION_ID, builder.build())
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID_SOCIAL)
+            .setSmallIcon(R.drawable.ic_stat_amatyma)
+            .setContentTitle(title)
+            .setContentText(body)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(body))
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+            .setContentIntent(pending)
+
+        nm.notify(SOCIAL_NOTIFICATION_ID_BASE + (System.currentTimeMillis() % 100000).toInt(), builder.build())
     }
 }

@@ -1,4 +1,4 @@
-package com.lokaleza.amatyma
+﻿package com.lokaleza.amatyma
 
 import android.content.Intent
 import android.media.MediaMetadataRetriever
@@ -101,8 +101,8 @@ class CreateStoryActivity : AppCompatActivity() {
                 binding.ivPlayIcon.visibility = View.GONE
 
                 binding.ivPreview.load(uri) {
-                    placeholder(R.drawable.ic_launcher_background)
-                    error(R.drawable.ic_launcher_background)
+                    placeholder(R.drawable.ic_default_avatar)
+                    error(R.drawable.ic_default_avatar)
                 }
             }
             MediaType.VIDEO -> {

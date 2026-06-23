@@ -1,4 +1,4 @@
-package com.lokaleza.amatyma
+﻿package com.lokaleza.amatyma
 
 import android.os.Bundle
 import android.os.Handler
@@ -148,8 +148,8 @@ class StoryViewerActivity : AppCompatActivity() {
         binding.tvTimeAgo.text = getTimeAgo(story.createdAt)
 
         binding.ivBusinessLogo.load(story.logoUrl) {
-            placeholder(R.drawable.ic_launcher_background)
-            error(R.drawable.ic_launcher_background)
+            placeholder(R.drawable.ic_default_avatar)
+            error(R.drawable.ic_default_avatar)
         }
 
         // Display story media
@@ -172,8 +172,8 @@ class StoryViewerActivity : AppCompatActivity() {
                 binding.videoStory.visibility = View.GONE
 
                 binding.ivStory.load(story.mediaUrl) {
-                    placeholder(R.drawable.ic_launcher_background)
-                    error(R.drawable.ic_launcher_background)
+                    placeholder(R.drawable.ic_default_avatar)
+                    error(R.drawable.ic_default_avatar)
                 }
 
                 startProgress()

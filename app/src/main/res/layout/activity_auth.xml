@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,6 +80,17 @@
                 android:maxLines="1"/>
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Forgot Password (login mode only) -->
+        <TextView
+            android:id="@+id/tvForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:text="Forgot password?"
+            android:textColor="?attr/cometchatPrimaryColor"
+            android:visibility="gone"/>
 
         <!-- Error message -->
         <TextView

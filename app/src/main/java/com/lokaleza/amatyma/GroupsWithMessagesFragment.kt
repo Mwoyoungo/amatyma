@@ -37,6 +37,8 @@ class GroupsWithMessagesFragment : Fragment() {
     }
 
     private fun setupGroups() {
+        binding.groupsWithMessages.setLoadingStateVisibility(View.GONE)
+
         binding.groupsWithMessages.setOnItemClick { _: View, _: Int, group: Group ->
             handleGroupClick(group)
         }

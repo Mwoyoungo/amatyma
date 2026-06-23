@@ -1,13 +1,10 @@
 package com.lokaleza.amatyma
 
 import android.Manifest
-import android.app.NotificationManager
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import android.util.Log
@@ -27,27 +24,37 @@ import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.messaging.FirebaseMessaging
 import com.lokaleza.amatyma.databinding.ActivityMainBinding
 import com.lokaleza.amatyma.db.CometChatSyncManager
+import com.lokaleza.amatyma.voip.CometChatVoIPManager
+import com.lokaleza.amatyma.social.SocialShell
+import com.lokaleza.amatyma.social.ui.theme.AmatymaSocialTheme
+import androidx.activity.OnBackPressedCallback
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
     private val conversationsWithMessagesFragment = ConversationsWithMessagesFragment()
-    private val callsFragment = CallsFragment()
     private val usersWithMessagesFragment = UsersWithMessagesFragment()
     private val groupsWithMessagesFragment = GroupsWithMessagesFragment()
 
     private var activeFragment: Fragment = conversationsWithMessagesFragment
     private lateinit var syncManager: CometChatSyncManager
+    private var socialBackCallback: OnBackPressedCallback? = null
 
     companion object {
         const val EXTRA_SELECTED_TAB = "selected_tab"
         const val TAB_CHATS = 0
-        const val TAB_CALLS = 1
         const val TAB_USERS = 2
         const val TAB_GROUPS = 3
         private const val TAG = "MainActivity"
         private const val KEY_ACTIVE_TAG = "active_fragment_tag"
+
+        private const val VOIP_PERMISSION_REQUEST_CODE = 1002
+        private val VOIP_PERMISSIONS = arrayOf(
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.CALL_PHONE,
+            Manifest.permission.ANSWER_PHONE_CALLS
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,10 +62,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // ── Social surface (Jetpack Compose) mounted ON TOP of the chat shell as
+        // the primary view. Everything below — CometChat login recovery, FCM token,
+        // Room sync, VoIP setup — is unchanged and keeps running underneath, so
+        // chat/calls/notifications behave exactly as before. ──
+        mountSocialShell()
+
         if (savedInstanceState != null) {
             val tag = savedInstanceState.getString(KEY_ACTIVE_TAG, "chats")
             activeFragment = when (tag) {
-                "calls"  -> callsFragment
                 "users"  -> usersWithMessagesFragment
                 "groups" -> groupsWithMessagesFragment
                 else     -> conversationsWithMessagesFragment
@@ -66,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         requestNotificationPermission()
-        requestFullScreenIntentPermission()
+        configureVoIP()
         setupBottomNavigation()
         showLoadingState(true)
         ensureCometChatLogin()
@@ -77,10 +89,37 @@ class MainActivity : AppCompatActivity() {
         outState.putString(KEY_ACTIVE_TAG, activeFragment.tag)
     }
 
+    // ─── Social surface mount (additive — no chat bootstrap is modified) ────────
+
+    /**
+     * Hosts the Compose social shell over the chat views. Chat sits underneath,
+     * fully alive (its bootstrap still runs in onCreate); it's surfaced on demand
+     * via [showChat] from the social feed's header chat icon.
+     */
+    private fun mountSocialShell() {
+        binding.socialCompose.setContent {
+            AmatymaSocialTheme {
+                SocialShell(onOpenChat = { showChat() }, onLogout = { performSocialLogout() })
+            }
+        }
+        socialBackCallback = object : OnBackPressedCallback(false) {
+            override fun handleOnBackPressed() {
+                // Back while in chat returns to the social surface.
+                binding.socialCompose.visibility = View.VISIBLE
+                isEnabled = false
+            }
+        }.also { onBackPressedDispatcher.addCallback(this, it) }
+    }
+
+    /** Reveals the existing chat shell (hides the social overlay). */
+    private fun showChat() {
+        binding.socialCompose.visibility = View.GONE
+        socialBackCallback?.isEnabled = true
+    }
+
     private fun initializeFragments() {
         supportFragmentManager.beginTransaction().apply {
             add(R.id.fragment_container, conversationsWithMessagesFragment, "chats")
-            add(R.id.fragment_container, callsFragment, "calls").hide(callsFragment)
             add(R.id.fragment_container, usersWithMessagesFragment, "users").hide(usersWithMessagesFragment)
             add(R.id.fragment_container, groupsWithMessagesFragment, "groups").hide(groupsWithMessagesFragment)
             commitNow()
@@ -189,21 +228,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun requestFullScreenIntentPermission() {
-        // Android 14+ requires explicit user grant for USE_FULL_SCREEN_INTENT.
-        // Without it the incoming call screen never shows over the lock screen.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            val nm = getSystemService(NotificationManager::class.java)
-            if (!nm.canUseFullScreenIntent()) {
-                startActivity(
-                    Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT).apply {
-                        data = Uri.parse("package:$packageName")
-                    }
-                )
-            }
-        }
-    }
-
     private fun requestNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
@@ -214,6 +238,56 @@ class MainActivity : AppCompatActivity() {
                     1001
                 )
             }
+        }
+    }
+
+    // ─── Native VoIP calling setup ────────────────────────────────────────────
+
+    private var voipEnablePrompted = false
+
+    /**
+     * Requests the phone permissions the native call screen needs, then (once
+     * granted) nudges the user to enable Amatyma's calling account so Android
+     * will show the native incoming-call screen. Mirrors CometChat's official
+     * sample VoIP setup.
+     */
+    private fun configureVoIP() {
+        val missing = VOIP_PERMISSIONS.filter {
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+        if (missing.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, missing.toTypedArray(), VOIP_PERMISSION_REQUEST_CODE)
+        } else {
+            maybePromptEnableCallingAccount()
+        }
+    }
+
+    private fun maybePromptEnableCallingAccount() {
+        if (voipEnablePrompted) return
+        if (CometChatVoIPManager.isPhoneAccountEnabled(this)) return
+
+        voipEnablePrompted = true
+        AlertDialog.Builder(this)
+            .setTitle("Enable Amatyma calls")
+            .setMessage(
+                "To receive Amatyma voice and video calls like a normal phone call, " +
+                "turn on the Amatyma calling account on the next screen."
+            )
+            .setPositiveButton("Open settings") { _, _ ->
+                CometChatVoIPManager.openCallingAccountsSettings(this)
+            }
+            .setNegativeButton("Later") { dialog, _ -> dialog.dismiss() }
+            .show()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == VOIP_PERMISSION_REQUEST_CODE) {
+            maybePromptEnableCallingAccount()
         }
     }
 
@@ -256,6 +330,25 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
+    /**
+     * Logout from the social surface. Mirrors the proven sequence in
+     * MyBusinessProfileActivity exactly: clear caches, log out CometChat, sign out
+     * Firebase, return to AuthActivity. CometChat is only disconnected here, on an
+     * explicit logout — never during normal use.
+     */
+    private fun performSocialLogout() {
+        getSharedPreferences("profile_cache", MODE_PRIVATE).edit().clear().apply()
+        getSharedPreferences("amatyma_prefs", MODE_PRIVATE).edit().clear().apply()
+        CometChat.logout(object : CometChat.CallbackListener<String>() {
+            override fun onSuccess(message: String?) { Log.d(TAG, "Social logout: CometChat logout ok") }
+            override fun onError(exception: CometChatException?) {
+                Log.e(TAG, "Social logout: CometChat logout error: ${exception?.message}")
+            }
+        })
+        FirebaseAuth.getInstance().signOut()
+        redirectToAuth()
+    }
+
     private fun showLoadingState(show: Boolean) {
         binding.progressBar.visibility = if (show) View.VISIBLE else View.GONE
         binding.fragmentContainer.visibility = if (show) View.GONE else View.VISIBLE
@@ -266,7 +359,6 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_chats  -> { showFragment(conversationsWithMessagesFragment); true }
-                R.id.nav_calls  -> { showFragment(callsFragment); true }
                 R.id.nav_users  -> { showFragment(usersWithMessagesFragment); true }
                 R.id.nav_groups -> { showFragment(groupsWithMessagesFragment); true }
                 else -> false
@@ -277,7 +369,6 @@ class MainActivity : AppCompatActivity() {
     private fun selectTab(tab: Int) {
         when (tab) {
             TAB_CHATS  -> binding.bottomNavigation.selectedItemId = R.id.nav_chats
-            TAB_CALLS  -> binding.bottomNavigation.selectedItemId = R.id.nav_calls
             TAB_USERS  -> binding.bottomNavigation.selectedItemId = R.id.nav_users
             TAB_GROUPS -> binding.bottomNavigation.selectedItemId = R.id.nav_groups
         }

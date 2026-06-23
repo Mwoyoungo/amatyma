@@ -10,7 +10,7 @@ const axios = require('axios');
 
 // Get CometChat configuration from environment variables
 // Set these using: firebase functions:config:set cometchat.api_key="YOUR_KEY"
-const COMETCHAT_APP_ID = functions.config().cometchat.app_id || "281421fd397d9bf6";
+const COMETCHAT_APP_ID = functions.config().cometchat.app_id || "1678655d5116b4d9e";
 const COMETCHAT_REGION = functions.config().cometchat.region || "us";
 const COMETCHAT_API_KEY = functions.config().cometchat.api_key;
 

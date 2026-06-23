@@ -19,6 +19,9 @@ keystore.properties
 *.jks
 *.keystore
 
+# GitHub Packages credentials (FastPix upload SDK) - DO NOT COMMIT
+github.properties
+
 # Windows reserved filenames
 nul
 **/nul

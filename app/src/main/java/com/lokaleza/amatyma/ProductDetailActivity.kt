@@ -1,4 +1,4 @@
-package com.lokaleza.amatyma
+﻿package com.lokaleza.amatyma
 
 import android.content.Intent
 import android.net.Uri
@@ -128,8 +128,8 @@ class ProductDetailActivity : AppCompatActivity() {
 
                 // Load first image as main image
                 binding.ivMainProductImage.load(prod.images[0]) {
-                    placeholder(R.drawable.ic_launcher_background)
-                    error(R.drawable.ic_launcher_background)
+                    placeholder(R.drawable.ic_default_avatar)
+                    error(R.drawable.ic_default_avatar)
                 }
             }
 
@@ -254,8 +254,8 @@ class ProductImageAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.imageView.load(images[position]) {
-            placeholder(R.drawable.ic_launcher_background)
-            error(R.drawable.ic_launcher_background)
+            placeholder(R.drawable.ic_default_avatar)
+            error(R.drawable.ic_default_avatar)
         }
     }
 

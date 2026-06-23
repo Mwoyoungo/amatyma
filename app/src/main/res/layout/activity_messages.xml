@@ -9,11 +9,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.cometchat.chatuikit.messagelist.CometChatMessageList
-        android:id="@+id/message_list"
+    <!-- FrameLayout stacks pre-paint on top of CometChat's list.
+         Pre-paint shows cached messages instantly from Room.
+         Once CometChat is ready it takes over and pre-paint is hidden. -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1">
+
+        <com.cometchat.chatuikit.messagelist.CometChatMessageList
+            android:id="@+id/message_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- Pre-paint RecyclerView — visible immediately, hidden once CometChat loads -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:clipToPadding="false"
+            android:paddingVertical="8dp"
+            android:visibility="gone" />
+
+    </FrameLayout>
 
     <com.cometchat.chatuikit.messagecomposer.CometChatMessageComposer
         android:id="@+id/message_composer"

@@ -1,4 +1,4 @@
-package com.lokaleza.amatyma
+﻿package com.lokaleza.amatyma
 
 import android.content.Intent
 import android.os.Bundle
@@ -232,8 +232,8 @@ class BusinessFeedAdapter(
 
             // Load profile image with Coil
             ivProfile.load(post.profileImage) {
-                placeholder(R.drawable.ic_launcher_background)
-                error(R.drawable.ic_launcher_background)
+                placeholder(R.drawable.ic_default_avatar)
+                error(R.drawable.ic_default_avatar)
             }
 
             // Navigate to public business profile when clicking profile or business name
@@ -291,8 +291,8 @@ class BusinessFeedAdapter(
                 ivPlayButton.visibility = android.view.View.GONE
 
                 ivHero.load(post.heroImage) {
-                    placeholder(R.drawable.ic_launcher_background)
-                    error(R.drawable.ic_launcher_background)
+                    placeholder(R.drawable.ic_default_avatar)
+                    error(R.drawable.ic_default_avatar)
                 }
 
                 // Navigate to post detail when clicking image

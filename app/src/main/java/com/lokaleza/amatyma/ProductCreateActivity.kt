@@ -1,4 +1,4 @@
-package com.lokaleza.amatyma
+﻿package com.lokaleza.amatyma
 
 import android.net.Uri
 import android.os.Bundle
@@ -293,8 +293,8 @@ class SelectedImagesAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.imageView.load(images[position]) {
-            placeholder(R.drawable.ic_launcher_background)
-            error(R.drawable.ic_launcher_background)
+            placeholder(R.drawable.ic_default_avatar)
+            error(R.drawable.ic_default_avatar)
         }
 
         holder.removeButton.setOnClickListener {

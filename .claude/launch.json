@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "present",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "5577", "--directory", "C:\\present"],
+      "port": 5577
+    }
+  ]
+}

@@ -1,164 +1,73 @@
 package com.lokaleza.amatyma
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
-import android.view.View
-import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatDelegate
-import com.cometchat.chat.constants.CometChatConstants
-import com.cometchat.chat.core.Call
 import com.cometchat.chat.core.CometChat
 import com.cometchat.chat.exceptions.CometChatException
-import com.cometchat.chatuikit.calls.CallingExtension
-import com.cometchat.chatuikit.calls.incomingcall.CometChatIncomingCall
 import com.cometchat.chatuikit.shared.cometchatuikit.CometChatUIKit
-import com.cometchat.chatuikit.shared.cometchatuikit.CometChatUIKitHelper
 import com.cometchat.chatuikit.shared.cometchatuikit.UIKitSettings
-import com.cometchat.chatuikit.shared.events.CometChatCallEvents
-import com.cometchat.chatuikit.shared.interfaces.OnError
-import com.cometchat.chatuikit.shared.resources.soundmanager.CometChatSoundManager
-import com.cometchat.chatuikit.shared.resources.soundmanager.Sound
-import com.cometchat.chatuikit.shared.resources.utils.Utils
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.lokaleza.amatyma.db.AmatymaDatabase
+import com.lokaleza.amatyma.voip.CometChatVoIPManager
 
 class AmatymaApplication : Application() {
 
     private var currentActivity: Activity? = null
-    private var snackBar: Snackbar? = null
-    private lateinit var soundManager: CometChatSoundManager
-    private var tempCall: Call? = null
 
     companion object {
         private const val TAG = "AmatymaApplication"
-        private const val APP_ID   = "1678655d5116b4d9e"
-        private const val REGION   = "us"
-        private const val AUTH_KEY = "645135588ebf9d6fa298be23f0fea0d49d97fb57"
+        // Exposed (not private) so the VoIP telecom layer can re-init CometChat
+        // with the same credentials if a call callback runs before init completes.
+        const val APP_ID   = "1678655d5116b4d9e"
+        const val REGION   = "us"
+        const val AUTH_KEY = "645135588ebf9d6fa298be23f0fea0d49d97fb57"
 
         private const val PREFS_NAME   = "amatyma_app_prefs"
         private const val KEY_APP_ID   = "cometchat_app_id"
-        private val CALL_LISTENER_ID   = "AmatymaApp_${System.currentTimeMillis()}"
+
+        /**
+         * UID/GUID of the conversation currently on screen, or null if none.
+         * Set/cleared by MessagesActivity as it resumes/pauses. Used to
+         * suppress message notifications for a chat the user is already viewing.
+         */
+        @Volatile
+        var activeConversationId: String? = null
     }
 
     override fun onCreate() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        soundManager = CometChatSoundManager(this)
-        // Create the call notification channel before any FCM message can arrive
+        // Create the chat-message notification channel up front
         AmatymaFirebaseMessagingService.createNotificationChannel(
             getSystemService(NotificationManager::class.java)
         )
         registerActivityTracker()
-        addCallListener()
         clearStaleDataIfAccountChanged()
         initializeFirestore()
         initializeCometChat()
+        // Register the Telecom phone account so the OS can show the native
+        // incoming-call screen for VoIP calls (full screen, over lock screen).
+        CometChatVoIPManager.registerPhoneAccount(this)
     }
 
     private fun registerActivityTracker() {
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
-            private var activityReferences = 0
-            private var isChangingConfig = false
-
             override fun onActivityCreated(activity: Activity, b: Bundle?) { currentActivity = activity }
-            override fun onActivityStarted(activity: Activity) {
-                currentActivity = activity
-                if (++activityReferences == 1 && !isChangingConfig) Unit
-            }
-            override fun onActivityResumed(activity: Activity) {
-                currentActivity = activity
-                if (snackBar != null && tempCall != null) showIncomingCallBanner(tempCall)
-                else dismissIncomingCallBanner()
-            }
+            override fun onActivityStarted(activity: Activity) { currentActivity = activity }
+            override fun onActivityResumed(activity: Activity) { currentActivity = activity }
             override fun onActivityPaused(activity: Activity) {}
-            override fun onActivityStopped(activity: Activity) {
-                isChangingConfig = activity.isChangingConfigurations
-                if (--activityReferences == 0 && !isChangingConfig) Unit
-            }
+            override fun onActivityStopped(activity: Activity) {}
             override fun onActivitySaveInstanceState(activity: Activity, b: Bundle) {}
             override fun onActivityDestroyed(activity: Activity) {
                 if (currentActivity === activity) currentActivity = null
             }
         })
-    }
-
-    private fun addCallListener() {
-        CometChat.addCallListener(CALL_LISTENER_ID, object : CometChat.CallListener() {
-            override fun onIncomingCallReceived(call: Call) {
-                soundManager.play(Sound.incomingCall)
-                launchIncomingCallPopup(call)
-            }
-            override fun onOutgoingCallAccepted(call: Call) { dismissIncomingCallBanner() }
-            override fun onOutgoingCallRejected(call: Call) { dismissIncomingCallBanner() }
-            override fun onIncomingCallCancelled(call: Call) { dismissIncomingCallBanner() }
-            override fun onCallEndedMessageReceived(call: Call) { dismissIncomingCallBanner() }
-        })
-
-        CometChatCallEvents.addListener(CALL_LISTENER_ID, object : CometChatCallEvents() {
-            override fun ccCallAccepted(call: Call) { dismissIncomingCallBanner() }
-            override fun ccCallRejected(call: Call) { dismissIncomingCallBanner() }
-        })
-    }
-
-    private fun launchIncomingCallPopup(call: Call) {
-        if (CometChat.getActiveCall() == null && CallingExtension.getActiveCall() == null && !CallingExtension.isActiveMeeting()) {
-            CallingExtension.setActiveCall(call)
-            showIncomingCallBanner(call)
-        } else {
-            rejectWithBusy(call)
-        }
-    }
-
-    @SuppressLint("RestrictedApi")
-    private fun showIncomingCallBanner(call: Call?) {
-        val activity = currentActivity ?: return
-        if (call == null) return
-        tempCall = call
-
-        val incomingCallView = CometChatIncomingCall(activity).apply {
-            disableSoundForCalls(true)
-            this.call = call
-            fitsSystemWindows = true
-            onError = OnError { dismissIncomingCallBanner() }
-        }
-
-        snackBar = Snackbar.make(activity.findViewById(android.R.id.content), " ", Snackbar.LENGTH_INDEFINITE)
-        val layout = snackBar!!.view as Snackbar.SnackbarLayout
-        val params = layout.layoutParams as FrameLayout.LayoutParams
-        params.gravity = Gravity.TOP
-        params.topMargin = Utils.convertDpToPx(this, 35)
-        layout.layoutParams = params
-        layout.setBackgroundColor(resources.getColor(android.R.color.transparent, null))
-        layout.addView(incomingCallView, 0)
-        snackBar!!.show()
-    }
-
-    private fun dismissIncomingCallBanner() {
-        if (snackBar?.isShown == true) {
-            snackBar!!.dismiss()
-            snackBar = null
-            tempCall = null
-            CallingExtension.setActiveCall(null)
-        }
-        soundManager.pauseSilently()
-    }
-
-    private fun rejectWithBusy(call: Call) {
-        Thread {
-            try { Thread.sleep(2000) } catch (e: InterruptedException) { return@Thread }
-            CometChat.rejectCall(call.sessionId, CometChatConstants.CALL_STATUS_BUSY, object : CometChat.CallbackListener<Call>() {
-                override fun onSuccess(c: Call) { CometChatUIKitHelper.onCallRejected(c) }
-                override fun onError(e: CometChatException) {}
-            })
-        }.start()
     }
 
     /**
@@ -234,3 +143,4 @@ class AmatymaApplication : Application() {
         })
     }
 }
+

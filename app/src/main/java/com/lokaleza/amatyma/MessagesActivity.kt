@@ -25,6 +25,19 @@ class MessagesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMessagesBinding
     private lateinit var repo: ChatRepository
     private lateinit var previewAdapter: MessagePreviewAdapter
+    private var conversationId: String? = null
+
+    override fun onResume() {
+        super.onResume()
+        AmatymaApplication.activeConversationId = conversationId
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (AmatymaApplication.activeConversationId == conversationId) {
+            AmatymaApplication.activeConversationId = null
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +71,8 @@ class MessagesActivity : AppCompatActivity() {
 
         val conversationId = userId ?: groupId ?: run { finish(); return }
         val isGroup = groupId != null
+        this.conversationId = conversationId
+        AmatymaApplication.activeConversationId = conversationId
 
         setupPreviewList(conversationId, isGroup)
 

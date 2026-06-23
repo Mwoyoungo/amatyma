@@ -1,0 +1,31 @@
+<resources>
+    <style name="KotlinSampleApp.v5" parent="CometChatTheme.DayNight" />
+<style name="Builder.Theme.Roboto" parent="CometChatTheme.DayNight">
+       <item name="cometchatFontBold">@font/roboto_bold</item>
+       <item name="cometchatFontRegular">@font/roboto_regular</item>
+       <item name="cometchatFontMedium">@font/roboto_medium</item>
+</style>
+<style name="Builder.Theme.Arial" parent="CometChatTheme.DayNight">
+       <item name="cometchatFontBold">@font/arial_bold</item>
+       <item name="cometchatFontRegular">@font/arial_regular</item>
+       <item name="cometchatFontMedium">@font/arial_medium</item>
+</style>
+<style name="Builder.Theme.Inter" parent="CometChatTheme.DayNight">
+       <item name="cometchatFontBold">@font/inter_bold</item>
+       <item name="cometchatFontRegular">@font/inter_regular</item>
+       <item name="cometchatFontMedium">@font/inter_medium</item>
+</style>
+<style name="Builder.Theme.TimesNewRoman" parent="CometChatTheme.DayNight">
+       <item name="cometchatFontBold">@font/times_new_roman_bold</item>
+       <item name="cometchatFontRegular">@font/times_new_roman_regular</item>
+       <item name="cometchatFontMedium">@font/times_new_roman_medium</item>
+</style>
+<style name="CometChat.Builder.Theme" parent="CometChatTheme.DayNight">
+       <item name="cometchatFontBold">@font/roboto_bold</item>
+       <item name="cometchatFontRegular">@font/roboto_regular</item>
+       <item name="cometchatFontMedium">@font/roboto_medium</item>
+       <item name="cometchatPrimaryColor">#000000</item>
+       <item name="cometchatTextColorPrimary">#ffffff</item>
+       <item name="cometchatTextColorSecondary">#989898</item>
+</style>
+</resources>

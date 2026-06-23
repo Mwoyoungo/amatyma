@@ -38,4 +38,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- ── Social shell (Jetpack Compose) — primary surface, hosted ON TOP of the
+         chat views. The fragment_container / bottom_navigation / progress_bar above
+         stay intact underneath so MainActivity's CometChat/FCM/VoIP bootstrap is
+         unchanged. Reached back via showChat() (hides this) and the back callback. -->
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/social_compose"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/black"
+        android:elevation="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

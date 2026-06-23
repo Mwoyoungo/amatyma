@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="builder_bottom_nav_chats">الدردشات</string>
+    <string name="builder_bottom_nav_calls">المكالمات</string>
+    <string name="builder_bottom_nav_users">المستخدمون</string>
+    <string name="builder_bottom_nav_groups">المجموعات</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="builder_login">تسجيل الدخول</string>
+    <string name="builder_continue_with_google">متابعة باستخدام Google</string>
+    <string name="builder_no_banned_members">لا يوجد أعضاء محظورون</string>
+    <string name="builder_banned_few_members_to_show_them_here">تم حظر بعض الأعضاء لعرضهم هنا</string>
+    <string name="builder_failed_to_sign_in_with_google_no_account_found">فشل تسجيل الدخول باستخدام Google، لم يتم العثور على حساب.</string>
+    <string name="builder_google_sign_in_failed">فشل تسجيل الدخول عبر Google: </string>
+    <string name="builder_group">مجموعة</string>
+    <string name="builder_btn_leave">مغادرة</string>
+    <string name="builder_leave_this_group">مغادرة هذه المجموعة؟</string>
+    <string name="builder_leave_this_group_description">هل أنت متأكد أنك تريد مغادرة هذه المجموعة؟ لن تتلقى أي رسائل أخرى من هذه الدردشة.</string>
+    <string name="builder_btn_cancel">إلغاء</string>
+    <string name="builder_transfer_ownership_description">هل أنت متأكد أنك تريد نقل الملكية؟ لا يمكن التراجع عن هذا الإجراء، وسيحصل المالك الجديد على التحكم الكامل.</string>
+    <string name="builder_btn_continue">متابعة</string>
+    <string name="builder_delete_and_exit">حذف ومغادرة؟</string>
+    <string name="builder_delete_and_exit_action">حذف ومغادرة</string>
+    <string name="builder_delete_and_exit_description">هل أنت متأكد أنك تريد حذف هذه الدردشة ومغادرة المجموعة؟ لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="builder_btn_delete">حذف</string>
+    <string name="builder_add">إضافة</string>
+    <string name="builder_member">عضو</string>
+    <string name="builder_members">الأعضاء</string>
+    <string name="builder_base_message">رسالة_أساسية</string>
+    <string name="builder_user">مستخدم</string>
+    <string name="builder_session_id">sessionId</string>
+    <string name="builder_call_type">نوع_المكالمة</string>
+    <string name="builder_not_logged_in">أنت غير مسجل الدخول. يرجى تسجيل الدخول ثم المحاولة مرة أخرى.</string>
+    <string name="builder_transfer_ownership">نقل الملكية</string>
+
+    <!--  Call Details  -->
+    <string name="builder_call_details">تفاصيل المكالمة</string>
+    <string name="builder_call_details_history">السجل</string>
+    <string name="builder_call_details_participants">المشاركون</string>
+    <string name="builder_call_details_recordings">التسجيلات</string>
+    <string name="builder_call_outgoing">صادرة</string>
+    <string name="builder_call_missed">فائتة</string>
+    <string name="builder_call_incoming">واردة</string>
+    <string name="builder_no_recordings_found">لم يتم العثور على تسجيلات</string>
+
+    <string name="builder_accept">قبول</string>
+    <string name="builder_decline">رفض</string>
+    <string name="builder_incoming_s_call">مكالمة واردة %s</string>
+    <string name="builder_user_info">معلومات المستخدم</string>
+    <string name="builder_voice">صوت</string>
+    <string name="builder_video">فيديو</string>
+
+    <string name="builder_delete">حذف الدردشة</string>
+    <string name="builder_delete_chat_title">حذف هذه الدردشة؟</string>
+    <string name="builder_delete_chat_subtitle">هل أنت متأكد أنك تريد حذف هذه الدردشة؟ لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="builder_delete_chat_positive_button">حذف</string>
+    <string name="builder_delete_chat_negative_button">إلغاء</string>
+    <string name="builder_delete_chat_error">فشل الحذف</string>
+    <string name="builder_delete_chat_success">تم حذف الدردشة</string>
+
+    <string name="builder_block">حظر</string>
+    <string name="builder_block_user_title">حظر هذا الشخص؟</string>
+    <string name="builder_block_user_subtitle">هل أنت متأكد أنك تريد حظر هذا الشخص؟ لن تتلقى أي رسائل أخرى منه.</string>
+    <string name="builder_block_user_positive_button">حظر</string>
+    <string name="builder_block_user_negative_button">إلغاء</string>
+    <string name="builder_block_user_error">فشل الحظر</string>
+    <string name="builder_block_user_success">تم حظر المستخدم</string>
+
+    <string name="builder_unblock">إلغاء الحظر</string>
+    <string name="builder_unblock_user_title">إلغاء حظر هذا الشخص؟</string>
+    <string name="builder_unblock_user_subtitle">هل أنت متأكد أنك تريد إلغاء حظر هذا الشخص؟</string>
+    <string name="builder_unblock_user_positive_button">إلغاء الحظر</string>
+    <string name="builder_unblock_user_negative_button">إلغاء</string>
+    <string name="builder_unblock_user_error">فشل إلغاء الحظر</string>
+    <string name="builder_unblock_user_success">تم إلغاء حظر المستخدم</string>
+    <string name="builder_message_id">message_id</string>
+    <string name="builder_choose_sample_user">اختر مستخدمًا تجريبيًا</string>
+    <string name="builder_continue">متابعة</string>
+    <string name="builder_or">أو</string>
+    <string name="builder_change">تغيير</string>
+    <string name="builder_app_credentials">بيانات اعتماد التطبيق</string>
+    <string name="builder_enter_uid">أدخل UID</string>
+    <string name="builder_enter_your_uid">أدخل UID الخاص بك</string>
+    <string name="builder_error_invalid_user_or_uid_login">الرجاء اختيار مستخدم أو إدخال UID صحيح</string>
+    <string name="builder_shared_pref">AppSharedPref</string>
+    <string name="builder_cred_id">appId</string>
+    <string name="builder_cred_region">appRegion</string>
+    <string name="builder_cred_auth">appAuthKey</string>
+    <string name="builder_region">المنطقة</string>
+    <string name="builder_region_us">الولايات المتحدة</string>
+    <string name="builder_region_eu">الاتحاد الأوروبي</string>
+    <string name="builder_region_in">الهند</string>
+    <string name="builder_app_id">معرّف التطبيق</string>
+    <string name="builder_app_id_hint">أدخل معرّف التطبيق</string>
+    <string name="builder_auth_key">مفتاح المصادقة</string>
+    <string name="builder_auth_key_hint">أدخل مفتاح المصادقة</string>
+    <string name="builder_please_select_app_region">الرجاء اختيار منطقة التطبيق</string>
+    <string name="builder_invalid_app_id">الرجاء إدخال معرّف تطبيق صالح</string>
+    <string name="builder_invalid_auth_token">الرجاء إدخال رمز مصادقة صالح</string>
+    <string name="builder_new_group">مجموعة جديدة</string>
+    <string name="builder_group_type">النوع</string>
+    <string name="builder_group_name">الاسم</string>
+    <string name="builder_group_hint_name">أدخل اسم المجموعة</string>
+    <string name="builder_password">كلمة المرور</string>
+    <string name="builder_hint_enter_the_password">أدخل كلمة المرور</string>
+    <string name="builder_btn_create_group">إنشاء مجموعة</string>
+    <string name="builder_create_conversation">إنشاء محادثة</string>
+    <string name="builder_logout">تسجيل الخروج</string>
+    <string name="builder_group_info">معلومات المجموعة</string>
+    <string name="builder_no_longer_part_of_this_group">لم تعد جزءًا من هذه المجموعة</string>
+    <string name="builder_view_members">عرض الأعضاء</string>
+    <string name="builder_add_members">إضافة أعضاء</string>
+    <string name="builder_banned_members">الأعضاء المحظورون</string>
+    <string name="builder_view_members_chip">عرض\nالأعضاء</string>
+    <string name="builder_add_members_chip">إضافة\nأعضاء</string>
+    <string name="builder_banned_members_chip">أعضاء\nمحظورون</string>
+    <string name="builder_leave">مغادرة</string>
+    <string name="builder_block_user_unable_to_send_message">لا يمكنك إرسال رسائل إلى هذه المجموعة لأنك لم تعد عضوًا فيها.</string>
+    <string name="builder_unblock_user">إلغاء حظر المستخدم</string>
+    <string name="builder_description">الوصف</string>
+    <string name="builder_steps_to_reproduce">خطوات إعادة الإجراء</string>
+    <string name="builder_join_group">الانضمام للمجموعة</string>
+    <string name="builder_type">النوع</string>
+    <string name="builder_enter_the_password">أدخل كلمة المرور</string>
+    <string name="builder_something_went_wrong_please_try_again">حدث خطأ ما. يرجى المحاولة مرة أخرى.</string>
+    <string name="builder_retry">إعادة المحاولة</string>
+    <string name="builder_looks_like_something_went_wrong_n_please_try_again">يبدو أن هناك خطأ ما.\nيرجى المحاولة مرة أخرى.</string>
+    <string name="builder_type_public">عام</string>
+
+    <string name="builder_transfer_ownership_text">نقل الملكية</string>
+    <string name="builder_type_private">خاص</string>
+    <string name="builder_type_protected">محمي</string>
+    <string name="builder_thread_title">سلسلة</string>
+    <string name="builder_error_conversations_title">عذرًا!</string>
+    <string name="builder_group_members_empty_title">لا يوجد أعضاء متاحون</string>
+    <string name="builder_group_member_empty_subtitle">أضف أعضاءً إلى المجموعة وسيظهرون هنا.</string>
+    <string name="builder_search">بحث</string>
+    <string name="builder_new_chat">دردشة جديدة</string>
+    <string name="builder_report">بدء التقرير</string>
+    <string name="builder_has_blocked_you">قام بحظرك</string>
+    <string name="builder_you_have_blocked_this_user">لقد قمت بحظر</string>
+    <string name="builder_unblock_message">لا يمكن إرسال رسالة لأن المستخدم محظور</string>
+    <string name="builder_transfer_ownership_information">يجب عليك نقل ملكية هذه المجموعة إلى عضو آخر قبل مغادرتها.</string>
+
+    <string name="builder_participant_scope_with_group">يُسمح فقط لمشرفي المجموعة بتنفيذ هذا الإجراء. المستخدم %1$s لديه صلاحية "مشارك" في المجموعة %2$s.</string>
+    <string name="builder_participant_scope_without_group">يُسمح فقط لمشرفي المجموعة بتنفيذ هذا الإجراء. المستخدم %1$s لديه صلاحية "مشارك".</string>
+</resources>

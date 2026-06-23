@@ -14,7 +14,7 @@
         android:layout_height="80dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="App Logo"
-        android:src="@drawable/ic_launcher_foreground" />
+        android:src="@mipmap/ic_launcher_foreground" />
 
     <TextView
         android:id="@+id/tv_app_name"

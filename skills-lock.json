@@ -1,0 +1,611 @@
+{
+  "version": 1,
+  "skills": {
+    "cometchat": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat/SKILL.md",
+      "computedHash": "8efa17fa797b4b9669a8c8db55faf6ed9603da3aebbed82219dbdb8056026e4f"
+    },
+    "cometchat-android-v5": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v5/SKILL.md",
+      "computedHash": "8025f74256618f0d4cd3ce9ae3ba081519fa8e2dfff1d0fe387438b23451979d"
+    },
+    "cometchat-android-v5-components": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v5-components/SKILL.md",
+      "computedHash": "fc4bf394d2ced4f6251d3635b443d3cf838d9adcbbd0e624fc0decb432fbd538"
+    },
+    "cometchat-android-v5-core": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v5-core/SKILL.md",
+      "computedHash": "eeaffc07dda3c627c748ae5168d77ed6a12af2c755b5e5bf93459554ed31c205"
+    },
+    "cometchat-android-v5-customization": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v5-customization/SKILL.md",
+      "computedHash": "28e43153492e1ede9ed94f58f372369e3fbe1084223daf605f6c98f7374e077b"
+    },
+    "cometchat-android-v5-extensions": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v5-extensions/SKILL.md",
+      "computedHash": "eef4e791c202dc7f4e1115390ce4deb89b5d5ef191318cba14b668fccb907a94"
+    },
+    "cometchat-android-v5-features": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v5-features/SKILL.md",
+      "computedHash": "c9153b489f5938fd387b5b6e7ddf691ebff627171116fd17194563cec3beaea3"
+    },
+    "cometchat-android-v5-placement": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v5-placement/SKILL.md",
+      "computedHash": "874dd914f06624f8947dd3b50ae181ef4801aecf07a6c8a1499c40530a8ff4da"
+    },
+    "cometchat-android-v5-production": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v5-production/SKILL.md",
+      "computedHash": "42ca06b31151287e204e828625cb6004c02ba38ef8f102c00599bc3e8094c148"
+    },
+    "cometchat-android-v5-push": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v5-push/SKILL.md",
+      "computedHash": "a5b174ad37107bb33b02f6149d99886c3c3043babc7545c30570e9b948cacfc7"
+    },
+    "cometchat-android-v5-testing": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v5-testing/SKILL.md",
+      "computedHash": "b9f6a063ea44d863fd5ab1e2ce312e061bd1ef0376c4ae41a71f7d40a1c3ad6d"
+    },
+    "cometchat-android-v5-theming": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v5-theming/SKILL.md",
+      "computedHash": "5b4984cd871451d15750edd38fd5ddfb4efc65893e3052da8b78ba2456ff1af7"
+    },
+    "cometchat-android-v5-troubleshooting": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v5-troubleshooting/SKILL.md",
+      "computedHash": "941ca03879ee5ad2116dffd05f0742feccb7ea741387f6d01e20ebfe081c6bbd"
+    },
+    "cometchat-android-v6": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6/SKILL.md",
+      "computedHash": "faaa890d8a1a83de32ecd21447a436a7b0a06fe85e837cd81813d30cde81ec35"
+    },
+    "cometchat-android-v6-builder-settings": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-builder-settings/SKILL.md",
+      "computedHash": "5e1ee880c2d0a2d607fb47c9c4306fce0064a4d1f254c7e28cb3d37eb44b1fae"
+    },
+    "cometchat-android-v6-compose-components": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-compose-components/SKILL.md",
+      "computedHash": "1f2de7736eeb7e470657205f5620e72d8e4b218d9fa377994c3fdf8035ca2f8d"
+    },
+    "cometchat-android-v6-compose-customization": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-compose-customization/SKILL.md",
+      "computedHash": "3b18b5d0cb12b42c45a7af4824c93820288e0f97597e1b30f2f4a4cc1a4197d3"
+    },
+    "cometchat-android-v6-compose-placement": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-compose-placement/SKILL.md",
+      "computedHash": "afb94bb13bea3447b615da07273ff090fb9f394d2d35e78969a3869f1a90cf09"
+    },
+    "cometchat-android-v6-compose-theming": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-compose-theming/SKILL.md",
+      "computedHash": "5a430b76597917798706f9f66acad4b57dcdcdef5237039814851fd5b993f451"
+    },
+    "cometchat-android-v6-core": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-core/SKILL.md",
+      "computedHash": "662466afd59aa0103436c62c79f2ea5238dd1c760e617081f4817c13932e6df7"
+    },
+    "cometchat-android-v6-events": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-events/SKILL.md",
+      "computedHash": "cc479a7a4f5e735808a4b697fe43f05a5320790fe49fc5f2536cd74397a9de6b"
+    },
+    "cometchat-android-v6-extensions": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-extensions/SKILL.md",
+      "computedHash": "70bebb6fb155e381d01d98d43ad254a3797773edce62ddf845b40a4664dfa7d6"
+    },
+    "cometchat-android-v6-features": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-features/SKILL.md",
+      "computedHash": "cd67783a930985d993c9c1b72534228e8da630dce2f16d3d82fe2240120e0878"
+    },
+    "cometchat-android-v6-kotlin-components": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-kotlin-components/SKILL.md",
+      "computedHash": "499d7083be997709db4d13c1c48ea77ad8254d3ea01373482859c0d23c624956"
+    },
+    "cometchat-android-v6-kotlin-customization": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-kotlin-customization/SKILL.md",
+      "computedHash": "a72ad3b51ad56cf6b8af47bac02da2f2bf9c75d7f1877eec460cc60b1f64a22f"
+    },
+    "cometchat-android-v6-kotlin-placement": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-kotlin-placement/SKILL.md",
+      "computedHash": "d8ae09dbb5885a7b36730f4504fa91c3e75bdeb5779137cd7323e71733086160"
+    },
+    "cometchat-android-v6-kotlin-theming": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-kotlin-theming/SKILL.md",
+      "computedHash": "6c80f736ec777c46a640bea8258945f2bfec2e3a2062d6f11e897a08efaa29cd"
+    },
+    "cometchat-android-v6-production": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-production/SKILL.md",
+      "computedHash": "79414b74d9b328cd340c437857233276c783ece7adb1a816f32367a887eba443"
+    },
+    "cometchat-android-v6-push": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-push/SKILL.md",
+      "computedHash": "9818737d17f27954f7dde0bf09cb2e9f33a02a79b78a21141103688660d0df26"
+    },
+    "cometchat-android-v6-testing": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-testing/SKILL.md",
+      "computedHash": "e5304fcece437dc9fb19961101b9d6d4939e8916822eddc02f097f7f0fb5b4b4"
+    },
+    "cometchat-android-v6-troubleshooting": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-android-v6-troubleshooting/SKILL.md",
+      "computedHash": "cd010b85ae68a8bdc914cdbc43b1bf25d1efd061c1728adfba262da836fc1a85"
+    },
+    "cometchat-angular-components": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-angular-components/SKILL.md",
+      "computedHash": "127bffc8e57827c0defe0f7d810778e877caf0e9eee2b83021abf6430c27e86c"
+    },
+    "cometchat-angular-core": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-angular-core/SKILL.md",
+      "computedHash": "1c0bafe283875e4bd060a595dfd38ffa665ceb32e3a73080ab51c5d5e69bd0ad"
+    },
+    "cometchat-angular-customization": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-angular-customization/SKILL.md",
+      "computedHash": "78f79539cdfcbeb20d240e4898f00f35fb243e350c558149dd114c9a30a70006"
+    },
+    "cometchat-angular-features": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-angular-features/SKILL.md",
+      "computedHash": "19689317bb7bbeef1aae725e948cfe67018fbc1bcdd309c3b1f114545d2fdb7e"
+    },
+    "cometchat-angular-patterns": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-angular-patterns/SKILL.md",
+      "computedHash": "0b1f9e63efa55cfd16e0faf959b461b2a52df10faeff38ea517b08f713334c6c"
+    },
+    "cometchat-angular-placement": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-angular-placement/SKILL.md",
+      "computedHash": "1b331ab9130c1bca5b9488f78d7d6dfdf368b8dbbaf055c736f50aaca0b7a7e8"
+    },
+    "cometchat-angular-production": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-angular-production/SKILL.md",
+      "computedHash": "db2e7009d8827cec1abf3f608997b9916d039e77252a60789543fd44ecd16d8b"
+    },
+    "cometchat-angular-theming": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-angular-theming/SKILL.md",
+      "computedHash": "c6cb6d68ba249c08cae29f9f2e0177a407e54cc84e25c2b6880a86031d1c46a2"
+    },
+    "cometchat-angular-troubleshooting": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-angular-troubleshooting/SKILL.md",
+      "computedHash": "0392dc6d396ad76230f29ffdb0322fc73723137ca247fdff7f05b76cc2c8f9dd"
+    },
+    "cometchat-astro-patterns": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-astro-patterns/SKILL.md",
+      "computedHash": "d21293068f6952c71f7a48b24c3911aee466581c1538740aca60be41047cf85f"
+    },
+    "cometchat-components": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-components/SKILL.md",
+      "computedHash": "ac21c7e60a4b311411b6cd3c4cb2fbc8b4fdc345da83d69654204405634f6f0e"
+    },
+    "cometchat-core": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-core/SKILL.md",
+      "computedHash": "3783eb0499f1f11b149314e9ae4ef3c0c8535417659d3558fe3a3fe586ea290c"
+    },
+    "cometchat-customization": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-customization/SKILL.md",
+      "computedHash": "b072d9ffc12f0efcb89c2459da969e8f7a79442bbdd48de691cfdc0ec938fca1"
+    },
+    "cometchat-features": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-features/SKILL.md",
+      "computedHash": "ca4a0c9f65c4e50084f03e9b9e5cbf1c41a247a039b4f5128cdab022832772c3"
+    },
+    "cometchat-flutter-v5": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v5/SKILL.md",
+      "computedHash": "b8e000548a1815c7f31b1afa0043b55234d2178e45dcc41064ef9350f8391b9f"
+    },
+    "cometchat-flutter-v5-calls": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v5-calls/SKILL.md",
+      "computedHash": "de58dbbe1b919b0b5a1c7ed1dc50153b9fff82ede41bc21ac1961a61b51b6f80"
+    },
+    "cometchat-flutter-v5-conversations": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v5-conversations/SKILL.md",
+      "computedHash": "444f6c6171aa422d3629656e37d37506ee65c9e1c154f131b62dee3ed07ed02f"
+    },
+    "cometchat-flutter-v5-core": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v5-core/SKILL.md",
+      "computedHash": "f9fad831346e6b4f4cb34d4fbe457f8ba50560424a6659d137edccea5b2fdfb9"
+    },
+    "cometchat-flutter-v5-customization": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v5-customization/SKILL.md",
+      "computedHash": "aec12665315af0dd3a4f41cce1fa44c2fecd59e4270c972251c639057a20940e"
+    },
+    "cometchat-flutter-v5-events": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v5-events/SKILL.md",
+      "computedHash": "3cc3e80373925c0909d605e08fd186485f1da06aed73830adb10149262e78209"
+    },
+    "cometchat-flutter-v5-messages": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v5-messages/SKILL.md",
+      "computedHash": "ee70f9265169ea4534075688a8f15f49013e201bca63041b2252ea64281a3f02"
+    },
+    "cometchat-flutter-v5-production": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v5-production/SKILL.md",
+      "computedHash": "57cdd0223ec883f3adc9c78869fd7ffb1012a2a76bdbb018b41ba8cda255a348"
+    },
+    "cometchat-flutter-v5-push": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v5-push/SKILL.md",
+      "computedHash": "e897879c1050fe50ae96085558547d8085bd4f84107c316b1c86e35f6a3560eb"
+    },
+    "cometchat-flutter-v5-theming": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v5-theming/SKILL.md",
+      "computedHash": "b4e0940bfcae7459089cfab5343809e18a85e639350c9964fddf6bccb26ee422"
+    },
+    "cometchat-flutter-v5-troubleshooting": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v5-troubleshooting/SKILL.md",
+      "computedHash": "e21a3180deb3357e066f68be898d569204ec53e489fc2ef5ada6fe37e55c3d55"
+    },
+    "cometchat-flutter-v5-users-groups": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v5-users-groups/SKILL.md",
+      "computedHash": "544f5cdaed0c653c36e72a6c1d3b85ce31f5c43466b04cfe07831aadb04930ba"
+    },
+    "cometchat-flutter-v6": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v6/SKILL.md",
+      "computedHash": "ca1675d06af5519227d1a0284a64fd7677c99b225ab804e4947b21be8e1a3721"
+    },
+    "cometchat-flutter-v6-calls": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v6-calls/SKILL.md",
+      "computedHash": "9369e0daf839a3cc5addcae46334acf0276f1fc9c485b6608154cd05d3c47a92"
+    },
+    "cometchat-flutter-v6-components": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v6-components/SKILL.md",
+      "computedHash": "2bf028712f643497da1a26a8afc7aab58401aa574d7d41934cae88344ae64f90"
+    },
+    "cometchat-flutter-v6-conversations": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v6-conversations/SKILL.md",
+      "computedHash": "4e8ddaa98f4430960ace26fcee5d4f18c4fda2f87329fbc97675742571019d4f"
+    },
+    "cometchat-flutter-v6-core": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v6-core/SKILL.md",
+      "computedHash": "912568e243f8ab069d052cb98f024b2d39213bd14152ba717dea669a856b7fd1"
+    },
+    "cometchat-flutter-v6-customization": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v6-customization/SKILL.md",
+      "computedHash": "bec85e25ce34efc3c6cb263b78555c9b211257ccd7143430a63eaebeeb365eaf"
+    },
+    "cometchat-flutter-v6-events": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v6-events/SKILL.md",
+      "computedHash": "e01f2fc677c02b70d182dbff70d96089403519bd3d78c4436b83698926636a24"
+    },
+    "cometchat-flutter-v6-features": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v6-features/SKILL.md",
+      "computedHash": "67db5ac0df75b7f773df69cabf2a4633f42ec546252982b9f0229081302afb2c"
+    },
+    "cometchat-flutter-v6-messages": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v6-messages/SKILL.md",
+      "computedHash": "4b15385a327a884ed1c0bf8a60647059048de1d4603b6af7c9401049964f8e6b"
+    },
+    "cometchat-flutter-v6-migration": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v6-migration/SKILL.md",
+      "computedHash": "db14e9b74af609bf48da22445e6011728d30e46baa1d8f6183f834ff58007d23"
+    },
+    "cometchat-flutter-v6-placement": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v6-placement/SKILL.md",
+      "computedHash": "d05cfc803714f62220e5753d3f131c6940f3541a2f4dd6f7393a2071c64facce"
+    },
+    "cometchat-flutter-v6-production": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v6-production/SKILL.md",
+      "computedHash": "5cf99b0742ea90fc7455f8c9c452da66b1c26b6c996de9e1244d83abc0967bf2"
+    },
+    "cometchat-flutter-v6-theming": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v6-theming/SKILL.md",
+      "computedHash": "eff9162155ed995cc83cc6cea117b7a015bd934018de7fd7dbc8a85522b1ed31"
+    },
+    "cometchat-flutter-v6-troubleshooting": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v6-troubleshooting/SKILL.md",
+      "computedHash": "5e89f16f0f6d38e1cc02b50f587c219ae0482fc63980e8269c3e3278c054b0f4"
+    },
+    "cometchat-flutter-v6-users-groups": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-flutter-v6-users-groups/SKILL.md",
+      "computedHash": "91eae0847da45ed7becd5b42c80cc6362d6c39cd47a454962ad8c831903b4fc2"
+    },
+    "cometchat-ios": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-ios/SKILL.md",
+      "computedHash": "ea6b67359299ecaae85598c846ffbb7995b2cec79addbae9d744cb8be2993f2c"
+    },
+    "cometchat-ios-components": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-ios-components/SKILL.md",
+      "computedHash": "19bc68ec57213250919159512ca03616dbe67f37737864999f02a9282452a3ac"
+    },
+    "cometchat-ios-core": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-ios-core/SKILL.md",
+      "computedHash": "f62bb54e33d75594b0cc280219dae9d99f30971b68ddb59ebd05e08faa466d7f"
+    },
+    "cometchat-ios-customization": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-ios-customization/SKILL.md",
+      "computedHash": "d271e1f15f594a8d851c26b5b633cee95f7f9f030ea9f95cd098b81059720f6b"
+    },
+    "cometchat-ios-features": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-ios-features/SKILL.md",
+      "computedHash": "de2a2941deadf17b695bac636dab299641f0081e3c176a90d84194d11e1e1a37"
+    },
+    "cometchat-ios-placement": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-ios-placement/SKILL.md",
+      "computedHash": "b35bf8d37c4daf6d7c72315c89b2e579d997f5dc8351561eb23255cf7b2bd8e1"
+    },
+    "cometchat-ios-production": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-ios-production/SKILL.md",
+      "computedHash": "bc33db572f01387eb8d663a94ed65505e9a60fe5f467d35d069027b7cfe311d4"
+    },
+    "cometchat-ios-push": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-ios-push/SKILL.md",
+      "computedHash": "cd88f3761ef781e26c14889eff2e91365e01590d481e6484c760c58d234462cc"
+    },
+    "cometchat-ios-theming": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-ios-theming/SKILL.md",
+      "computedHash": "ab2ffbdc836449e368690a38c114e0c60d53a8c8f563ac146a4be7975268cf15"
+    },
+    "cometchat-ios-troubleshooting": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-ios-troubleshooting/SKILL.md",
+      "computedHash": "daf2e8de9a22d52a215d89f124b7cf4c560c1166676e8367fb590f3cc4ed8926"
+    },
+    "cometchat-native-bare-patterns": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-native-bare-patterns/SKILL.md",
+      "computedHash": "67705476097d5633e0805151603ed95411c7d78f008bf5607686398bf697d5d3"
+    },
+    "cometchat-native-components": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-native-components/SKILL.md",
+      "computedHash": "663800f593d4dfb69247195cb80fab36be210542cbe74b037143baed3aea44b3"
+    },
+    "cometchat-native-core": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-native-core/SKILL.md",
+      "computedHash": "c04f2a0f67e9f796da086886d6c36c2661a488994a48aa9978d15f211af3c28e"
+    },
+    "cometchat-native-customization": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-native-customization/SKILL.md",
+      "computedHash": "87f94c1fed9979bf7b17d3d3443141660974c4f13855914b844d0557c9feecb1"
+    },
+    "cometchat-native-expo-patterns": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-native-expo-patterns/SKILL.md",
+      "computedHash": "3d789d58e2aff7a684ccd7192ebcb4bdc9b15845e251abb8d7b4ba51678c97b2"
+    },
+    "cometchat-native-features": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-native-features/SKILL.md",
+      "computedHash": "cabd050519fc47f373b0f528a7501df0eee1bb1300b1ac6fde36b7d458382e97"
+    },
+    "cometchat-native-placement": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-native-placement/SKILL.md",
+      "computedHash": "d42ab4106e037823034d80a96737c231335c0ee47358931eacd08e20f05f2574"
+    },
+    "cometchat-native-production": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-native-production/SKILL.md",
+      "computedHash": "757dd2180204ef954dea4fa3f7e2707fc5d6a02d71656de41ba3bf49c3b4dbd2"
+    },
+    "cometchat-native-push": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-native-push/SKILL.md",
+      "computedHash": "13778deecd23651a52619802cc0922e5d8ec0c3cea552cd2dcfcd7a664504f12"
+    },
+    "cometchat-native-testing": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-native-testing/SKILL.md",
+      "computedHash": "fcfe35fe8fcebeb16d8d4fc54c76c22aaf197b80ede93d0458fdd628abacffff"
+    },
+    "cometchat-native-theming": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-native-theming/SKILL.md",
+      "computedHash": "778a8ea1a37f5f43c6f9b349eb8f0550a62f52b411301326a18680df02e032b8"
+    },
+    "cometchat-native-troubleshooting": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-native-troubleshooting/SKILL.md",
+      "computedHash": "80e47213e0968a2ef2120a98a958c7537ffdaf727ae96e6a9cc56a4a6f453061"
+    },
+    "cometchat-nextjs-patterns": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-nextjs-patterns/SKILL.md",
+      "computedHash": "331eb679198cf066a882ee628f79597a1fc319c3342e7162fbaff6a376bfed3a"
+    },
+    "cometchat-placement": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-placement/SKILL.md",
+      "computedHash": "a809337472056bcd896ec8bfab631d3f5d7344f57068a3f66a96bd0e4a157808"
+    },
+    "cometchat-production": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-production/SKILL.md",
+      "computedHash": "f27b57b4b15c23357abc90e286e877f21e5708eb0a3d0a21f2475023f0348699"
+    },
+    "cometchat-react-patterns": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-react-patterns/SKILL.md",
+      "computedHash": "1790fc00ad8631a0509475d5402bec9533cdf7f3c4fc8b951fc3cd009e445ccb"
+    },
+    "cometchat-react-router-patterns": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-react-router-patterns/SKILL.md",
+      "computedHash": "93a3997b44d0d470bc741cff7b976745a0212ef6ffade0e927ec8abe62aee530"
+    },
+    "cometchat-theming": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-theming/SKILL.md",
+      "computedHash": "86d60865165b06c72f8629719d4f8a37de9bf171cbd76361ac4f7e71328c0358"
+    },
+    "cometchat-troubleshooting": {
+      "source": "cometchat/cometchat-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cometchat-troubleshooting/SKILL.md",
+      "computedHash": "e2c85fea052533df49b6e5911c564ae070329017a3f0e762974d859818615ee7"
+    }
+  }
+}

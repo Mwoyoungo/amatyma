@@ -1,4 +1,4 @@
-package com.lokaleza.amatyma
+﻿package com.lokaleza.amatyma
 
 import android.content.Intent
 import android.os.Bundle
@@ -93,8 +93,8 @@ class PublicBusinessProfileActivity : AppCompatActivity() {
                     binding.tvLocation.text = location
 
                     binding.ivLogo.load(logoUrl) {
-                        placeholder(R.drawable.ic_launcher_background)
-                        error(R.drawable.ic_launcher_background)
+                        placeholder(R.drawable.ic_default_avatar)
+                        error(R.drawable.ic_default_avatar)
                     }
 
                     // TODO: Load actual stats
@@ -134,26 +134,20 @@ class PublicBusinessProfileActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { documents ->
                 val posts = documents.map { doc ->
-                    MyBusinessProfileActivity.Post(
+                    Post(
                         postId = doc.getString("postId") ?: "",
                         mediaUrl = doc.getString("mediaUrl") ?: "",
                         mediaType = doc.getString("mediaType") ?: "image",
                         caption = doc.getString("caption") ?: ""
                     )
-                }.sortedByDescending {
-                    // Sort in memory instead of requiring Firestore index
-                    it.postId
-                }
+                }.sortedByDescending { it.postId }
 
-                // Update post count
                 binding.tvPostCount.text = posts.size.toString()
 
-                // Setup posts grid (view-only, no long press)
                 binding.rvPosts.layoutManager = GridLayoutManager(this, 3)
-                binding.rvPosts.adapter = MyBusinessProfileActivity.PostGridAdapter(
+                binding.rvPosts.adapter = PostGridAdapter(
                     posts = posts,
                     onPostClick = { post ->
-                        // Navigate to post detail when clicked
                         val intent = Intent(this, PostDetailActivity::class.java)
                         intent.putExtra("POST_ID", post.postId)
                         startActivity(intent)

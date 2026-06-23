@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="builder_bottom_nav_chats">Conversas</string>
+    <string name="builder_bottom_nav_calls">Chamadas</string>
+    <string name="builder_bottom_nav_users">Utilizadores</string>
+    <string name="builder_bottom_nav_groups">Grupos</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="builder_login">Iniciar sessão</string>
+    <string name="builder_continue_with_google">Continuar com o Google</string>
+    <string name="builder_no_banned_members">Não há membros bloqueados</string>
+    <string name="builder_banned_few_members_to_show_them_here">Alguns membros foram bloqueados para serem mostrados aqui</string>
+    <string name="builder_failed_to_sign_in_with_google_no_account_found">Falha ao iniciar sessão com o Google. Nenhuma conta encontrada.</string>
+    <string name="builder_google_sign_in_failed">Falha no início de sessão com o Google:</string>
+    <string name="builder_group">grupo</string>
+    <string name="builder_btn_leave">Sair</string>
+    <string name="builder_leave_this_group">Sair deste grupo?</string>
+    <string name="builder_leave_this_group_description">Tem a certeza de que deseja sair deste grupo? Não receberá mais mensagens desta conversa.</string>
+    <string name="builder_btn_cancel">Cancelar</string>
+    <string name="builder_transfer_ownership_description">Tem a certeza de que deseja transferir a propriedade? Esta ação não pode ser revertida, e o novo proprietário terá controlo total.</string>
+    <string name="builder_btn_continue">Continuar</string>
+    <string name="builder_delete_and_exit">Eliminar e sair?</string>
+    <string name="builder_delete_and_exit_action">Eliminar e sair</string>
+    <string name="builder_delete_and_exit_description">Tem a certeza de que deseja eliminar esta conversa e sair do grupo? Esta ação não pode ser revertida.</string>
+    <string name="builder_btn_delete">Eliminar</string>
+    <string name="builder_add">Adicionar</string>
+    <string name="builder_member">Membro</string>
+    <string name="builder_members">Membros</string>
+    <string name="builder_base_message">baseMessage</string>
+    <string name="builder_user">utilizador</string>
+    <string name="builder_session_id">sessionId</string>
+    <string name="builder_call_type">tipoDeChamada</string>
+    <string name="builder_not_logged_in">Não iniciou sessão. Por favor, inicie sessão e tente novamente.</string>
+    <string name="builder_transfer_ownership">Transferir Propriedade</string>
+
+    <!--  Call Details  -->
+    <string name="builder_call_details">Detalhes da Chamada</string>
+    <string name="builder_call_details_history">Histórico</string>
+    <string name="builder_call_details_participants">Participantes</string>
+    <string name="builder_call_details_recordings">Gravações</string>
+    <string name="builder_call_outgoing">A efetuar</string>
+    <string name="builder_call_missed">Perdida</string>
+    <string name="builder_call_incoming">A receber</string>
+    <string name="builder_no_recordings_found">Nenhuma gravação encontrada</string>
+
+    <string name="builder_accept">Aceitar</string>
+    <string name="builder_decline">Recusar</string>
+    <string name="builder_incoming_s_call">Chamada de %s a receber</string>
+    <string name="builder_user_info">Informações do Utilizador</string>
+    <string name="builder_voice">Voz</string>
+    <string name="builder_video">Vídeo</string>
+
+    <string name="builder_delete">Eliminar Conversa</string>
+    <string name="builder_delete_chat_title">Eliminar esta conversa?</string>
+    <string name="builder_delete_chat_subtitle">Tem a certeza de que deseja eliminar esta conversa? Esta ação não pode ser revertida.</string>
+    <string name="builder_delete_chat_positive_button">Eliminar</string>
+    <string name="builder_delete_chat_negative_button">Cancelar</string>
+    <string name="builder_delete_chat_error">Falha ao eliminar</string>
+    <string name="builder_delete_chat_success">Conversa eliminada</string>
+
+    <string name="builder_block">Bloquear</string>
+    <string name="builder_block_user_title">Bloquear este contacto?</string>
+    <string name="builder_block_user_subtitle">Tem a certeza de que deseja bloquear este contacto? Não receberá mais mensagens dele/dela.</string>
+    <string name="builder_block_user_positive_button">Bloquear</string>
+    <string name="builder_block_user_negative_button">Cancelar</string>
+    <string name="builder_block_user_error">Falha ao bloquear</string>
+    <string name="builder_block_user_success">Utilizador bloqueado</string>
+
+    <string name="builder_unblock">Desbloquear</string>
+    <string name="builder_unblock_user_title">Desbloquear este contacto?</string>
+    <string name="builder_unblock_user_subtitle">Tem a certeza de que deseja desbloquear este contacto?</string>
+    <string name="builder_unblock_user_positive_button">Desbloquear</string>
+    <string name="builder_unblock_user_negative_button">Cancelar</string>
+    <string name="builder_unblock_user_error">Falha ao desbloquear</string>
+    <string name="builder_unblock_user_success">Utilizador desbloqueado</string>
+    <string name="builder_message_id">message_id</string>
+    <string name="builder_choose_sample_user">Escolher um Utilizador de Exemplo</string>
+    <string name="builder_continue">Continuar</string>
+    <string name="builder_or">Ou</string>
+    <string name="builder_change">Alterar</string>
+    <string name="builder_app_credentials">Credenciais da Aplicação</string>
+    <string name="builder_enter_uid">Introduza o UID</string>
+    <string name="builder_enter_your_uid">Introduza o seu UID</string>
+    <string name="builder_error_invalid_user_or_uid_login">Selecione um utilizador ou introduza o UID correto</string>
+    <string name="builder_shared_pref">AppSharedPref</string>
+    <string name="builder_cred_id">appId</string>
+    <string name="builder_cred_region">appRegion</string>
+    <string name="builder_cred_auth">appAuthKey</string>
+    <string name="builder_region">Região</string>
+    <string name="builder_region_us">EUA</string>
+    <string name="builder_region_eu">UE</string>
+    <string name="builder_region_in">Índia</string>
+    <string name="builder_app_id">ID da Aplicação</string>
+    <string name="builder_app_id_hint">Introduza o ID da aplicação</string>
+    <string name="builder_auth_key">Chave de Autenticação</string>
+    <string name="builder_auth_key_hint">Introduza a chave de autenticação</string>
+    <string name="builder_please_select_app_region">Selecione a região da aplicação</string>
+    <string name="builder_invalid_app_id">Introduza um ID de aplicação válido</string>
+    <string name="builder_invalid_auth_token">Introduza um token de autenticação válido</string>
+    <string name="builder_new_group">Novo Grupo</string>
+    <string name="builder_group_type">Tipo</string>
+    <string name="builder_group_name">Nome</string>
+    <string name="builder_group_hint_name">Introduza o nome do grupo</string>
+    <string name="builder_password">Palavra-passe</string>
+    <string name="builder_hint_enter_the_password">Introduza a palavra-passe</string>
+    <string name="builder_btn_create_group">Criar Grupo</string>
+    <string name="builder_create_conversation">Criar conversa</string>
+    <string name="builder_logout">Terminar sessão</string>
+    <string name="builder_group_info">Informações do Grupo</string>
+    <string name="builder_no_longer_part_of_this_group">Já não faz parte deste grupo</string>
+    <string name="builder_view_members">Ver Membros</string>
+    <string name="builder_add_members">Adicionar Membros</string>
+    <string name="builder_banned_members">Membros Bloqueados</string>
+    <string name="builder_view_members_chip">Ver\nMembros</string>
+    <string name="builder_add_members_chip">Adicionar\nMembros</string>
+    <string name="builder_banned_members_chip">Membros\nBloqueados</string>
+    <string name="builder_leave">Sair</string>
+    <string name="builder_block_user_unable_to_send_message">Não pode enviar mensagens para este grupo, pois já não é membro.</string>
+    <string name="builder_unblock_user">Desbloquear Utilizador</string>
+    <string name="builder_description">Descrição</string>
+    <string name="builder_steps_to_reproduce">Passos para reproduzir</string>
+    <string name="builder_join_group">Juntar-se ao grupo</string>
+    <string name="builder_type">Tipo</string>
+    <string name="builder_enter_the_password">Introduza a palavra-passe</string>
+    <string name="builder_something_went_wrong_please_try_again">Algo correu mal. Por favor, tente novamente.</string>
+    <string name="builder_retry">Repetir</string>
+    <string name="builder_looks_like_something_went_wrong_n_please_try_again">Parece que algo correu mal.\nPor favor, tente novamente.</string>
+    <string name="builder_type_public">Público</string>
+
+    <string name="builder_transfer_ownership_text">Transferir Propriedade</string>
+    <string name="builder_type_private">Privado</string>
+    <string name="builder_type_protected">Protegido</string>
+    <string name="builder_thread_title">Tópico</string>
+    <string name="builder_error_conversations_title">Ups!</string>
+    <string name="builder_group_members_empty_title">Sem membros disponíveis</string>
+    <string name="builder_group_member_empty_subtitle">Adicione membros ao grupo para que apareçam listados aqui.</string>
+    <string name="builder_search">Procurar</string>
+    <string name="builder_new_chat">Nova Conversa</string>
+    <string name="builder_report">Iniciar Relatório</string>
+    <string name="builder_has_blocked_you" translatable="true">te bloqueou</string>
+    <string name="builder_you_have_blocked_this_user" translatable="true">Você bloqueou este usuário</string>
+    <string name="builder_unblock_message">Não é possível enviar uma mensagem, pois o usuário está bloqueado</string>
+    <string name="builder_transfer_ownership_information">Você precisa transferir a propriedade deste grupo para outro membro antes de sair.</string>
+    <string name="builder_participant_scope_with_group">Apenas os administradores do grupo podem executar esta ação. O usuário %1$s tem o papel de "participante" no grupo %2$s.</string>
+    <string name="builder_participant_scope_without_group">Apenas os administradores do grupo podem executar esta ação. O usuário %1$s tem o papel de "participante".</string>
+</resources>

@@ -1,68 +1,41 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Main App Theme - Modern Rounded Social UI (Dark Mode) -->
-    <style name="Theme.Amatyma" parent="Theme.Material3.Dark.NoActionBar">
-        <!-- Primary Brand Color - Vibrant Red (same as light mode) -->
+<resources>
+    <!-- App forces light mode via AppCompatDelegate.MODE_NIGHT_NO in AmatymaApplication.
+         This file is a safety net — inherits the same light parents so dark mode
+         cannot bleed through even if the night qualifier is somehow applied. -->
+    <style name="Theme.Amatyma" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/red_500</item>
         <item name="colorPrimaryVariant">@color/red_700</item>
         <item name="colorOnPrimary">@color/white</item>
-
-        <!-- Secondary Colors -->
         <item name="colorSecondary">@color/red_300</item>
         <item name="colorSecondaryVariant">@color/red_700</item>
         <item name="colorOnSecondary">@color/white</item>
-
-        <!-- Error Color -->
         <item name="colorError">@color/error</item>
         <item name="colorOnError">@color/white</item>
-
-        <!-- Background & Surface - Dark Mode with warm tones -->
-        <item name="android:colorBackground">@color/dark_background</item>
-        <item name="colorOnBackground">@color/dark_text_primary</item>
-        <item name="colorSurface">@color/dark_surface</item>
-        <item name="colorOnSurface">@color/dark_text_primary</item>
-
-        <!-- Material3 Containers -->
-        <item name="colorPrimaryContainer">@color/red_700</item>
+        <item name="android:colorBackground">@color/off_white</item>
+        <item name="colorOnBackground">@color/gray_900</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/gray_900</item>
+        <item name="android:windowBackground">@color/off_white</item>
+        <item name="colorPrimaryContainer">@color/red_300</item>
         <item name="colorOnPrimaryContainer">@color/white</item>
-        <item name="colorSecondaryContainer">@color/dark_surface_variant</item>
-        <item name="colorOnSecondaryContainer">@color/dark_text_primary</item>
-
-        <!-- Status Bar -->
-        <item name="android:statusBarColor">@color/dark_surface</item>
+        <item name="colorSecondaryContainer">@color/gray_100</item>
+        <item name="colorOnSecondaryContainer">@color/gray_900</item>
+        <item name="android:statusBarColor">@color/red_700</item>
         <item name="android:windowLightStatusBar">false</item>
-
-        <!-- Navigation Bar -->
-        <item name="android:navigationBarColor">@color/dark_surface</item>
-
-        <!-- Rounded Global Shapes -->
+        <item name="android:navigationBarColor">@color/white</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Amatyma.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Amatyma.MediumComponent</item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Amatyma.LargeComponent</item>
-
-        <!-- Component Styles -->
         <item name="materialButtonStyle">@style/Widget.Amatyma.Button</item>
-        <item name="materialCardViewStyle">@style/Widget.Amatyma.Card.Dark</item>
+        <item name="materialCardViewStyle">@style/Widget.Amatyma.Card</item>
         <item name="textInputStyle">@style/Widget.Amatyma.TextInputLayout</item>
-
-        <!-- CometChat Color Integration -->
         <item name="cometchatPrimaryColor">@color/red_500</item>
     </style>
 
-    <!-- Rounded Card - Dark Mode -->
-    <style name="Widget.Amatyma.Card.Dark" parent="Widget.Material3.CardView.Elevated">
-        <item name="cardCornerRadius">24dp</item>
-        <item name="cardElevation">6dp</item>
-        <item name="cardBackgroundColor">@color/dark_surface_variant</item>
-        <item name="contentPadding">20dp</item>
-        <item name="android:foreground">?android:attr/selectableItemBackground</item>
-    </style>
-
-    <!-- CometChat Specific Activities Theme (Dark Mode) -->
     <style name="Theme.Amatyma.CometChat" parent="CometChatTheme.DayNight">
         <item name="cometchatPrimaryColor">@color/red_500</item>
     </style>
 
-    <!-- Fullscreen theme for Story Viewer (Dark Mode) -->
     <style name="Theme.Amatyma.Fullscreen" parent="Theme.Amatyma">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>

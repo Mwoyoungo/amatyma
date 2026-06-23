@@ -99,55 +99,13 @@
             android:layout_height="52dp"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp"
             android:backgroundTint="@color/red_500"
             android:text="Start Chat"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:fontFamily="sans-serif-medium"
             style="@style/Widget.MaterialComponents.Button" />
-
-        <!-- Voice / Video call buttons -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="32dp">
-
-            <Button
-                android:id="@+id/btn_audio_call"
-                android:layout_width="0dp"
-                android:layout_height="52dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/black"
-                android:drawableStart="@android:drawable/ic_menu_call"
-                android:drawableTint="@color/white"
-                android:drawablePadding="8dp"
-                android:text="Voice Call"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:fontFamily="sans-serif-medium"
-                style="@style/Widget.MaterialComponents.Button" />
-
-            <Button
-                android:id="@+id/btn_video_call"
-                android:layout_width="0dp"
-                android:layout_height="52dp"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:backgroundTint="@color/black"
-                android:drawableStart="@android:drawable/ic_menu_camera"
-                android:drawableTint="@color/white"
-                android:drawablePadding="8dp"
-                android:text="Video Call"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:fontFamily="sans-serif-medium"
-                style="@style/Widget.MaterialComponents.Button" />
-
-        </LinearLayout>
 
     </LinearLayout>
 

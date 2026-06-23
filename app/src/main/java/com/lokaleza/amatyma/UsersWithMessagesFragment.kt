@@ -29,15 +29,16 @@ class UsersWithMessagesFragment : Fragment() {
     }
 
     private fun setupUsers() {
+        binding.usersWithMessages.setLoadingStateVisibility(View.GONE)
+
         binding.usersWithMessages.setOnItemClick { _: View, _: Int, user: User ->
-            navigateToMessages(user)
+            showUserDetails(user)
         }
     }
 
-    private fun navigateToMessages(user: User) {
-        val intent = Intent(requireActivity(), MessagesActivity::class.java).apply {
-            putExtra("USER_ID", user.uid)
-            putExtra("USER_NAME", user.name)
+    private fun showUserDetails(user: User) {
+        val intent = Intent(requireActivity(), UserDetailsActivity::class.java).apply {
+            putExtra(UserDetailsActivity.EXTRA_USER_ID, user.uid)
         }
         startActivity(intent)
     }
