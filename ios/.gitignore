@@ -1,0 +1,18 @@
+# XcodeGen generates this — regenerate with `xcodegen generate`
+*.xcodeproj
+*.xcworkspace
+
+# Firebase config — add per machine (see README), not committed
+Amatyma/GoogleService-Info.plist
+
+# Build artifacts
+build/
+DerivedData/
+.build/
+*.ipa
+*.dSYM.zip
+.swiftpm/
+Pods/
+
+# macOS
+.DS_Store

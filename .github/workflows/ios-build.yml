@@ -1,0 +1,36 @@
+name: iOS build (Simulator, unsigned)
+
+# Compiles the SwiftUI app on a macOS runner for the iOS Simulator. No Apple
+# Developer account and no code-signing are required for a simulator build, so
+# this verifies the app really compiles — for free — without a Mac.
+on:
+  push:
+    paths:
+      - 'ios/**'
+      - '.github/workflows/ios-build.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        working-directory: ios
+        run: xcodegen generate
+
+      - name: Build for iOS Simulator (unsigned)
+        working-directory: ios
+        run: |
+          xcodebuild \
+            -project Amatyma.xcodeproj \
+            -scheme Amatyma \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            build
