@@ -25,3 +25,6 @@ github.properties
 # Windows reserved filenames
 nul
 **/nul
+
+# Claude local worktrees (never commit)
+.claude/worktrees/
